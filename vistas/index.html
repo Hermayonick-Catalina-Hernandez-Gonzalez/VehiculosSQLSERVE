@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="../css/styleslogin.css">
+        <link rel="icon" href="../img/icono.png" type="image/png">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Sección izquierda -->
+            <div class="left-section">
+                <img src="../img/Logo2.png" alt="Logo FGJ">
+            </div>
+
+            <!-- Sección derecha -->
+            <div class="right-section">
+                <form id="loginForm">
+                    <h1>Inicia sesión</h1>
+                    <label for="correo">Correo:</label>
+                    <input type="email" id="correo" name="correo" placeholder="Ingresa tu correo" required>
+                
+                    <label for="contra">Contraseña:</label>
+                    <div class="password-container">
+                        <input type="password" id="contra" name="contra" placeholder="Ingresa tu contraseña" required>
+                        <img id="toggle-password" src="../img/ojo.png" alt="Mostrar contraseña" class="toggle-icon">
+                    </div>
+                    <button class="btn-iniciar" type="submit">Iniciar Sesión</button>
+                </form>                
+            </div>
+        </div>
+
+        <!-- Script para mostrar/ocultar contraseña -->
+        <script>
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordInput = document.getElementById('contra');
+    
+        togglePassword.addEventListener('click', () => {
+            const isPasswordVisible = passwordInput.type === 'password';
+            passwordInput.type = isPasswordVisible ? 'text' : 'password';
+            
+            togglePassword.src = isPasswordVisible 
+                ? '../img/cerrar-ojo.png' 
+                : '../img/ojo.png';  
+        });
+    </script>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita la recarga de la página
+
+            let formData = new FormData(this);
+
+            fetch("../php/login.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "error") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: data.message,
+                        backdrop: false 
+                    });
+                } else if (data.status === "success") {
+                    window.location.href = "../vistas/inicio.html";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+
+
+    </body>
+</html>

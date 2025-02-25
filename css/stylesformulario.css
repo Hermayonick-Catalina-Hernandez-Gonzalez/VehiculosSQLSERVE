@@ -1,0 +1,343 @@
+/* Estilo general */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    flex-direction: column; 
+    background-color: #f9f9f9;
+    overscroll-behavior: none;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Barra lateral */
+.menu {
+    flex: 1;
+    background-color: #1A2341;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-width: 300px; 
+}
+
+.menu .logo {
+    max-width: 80%;
+    margin-bottom: 20px;
+}
+
+.menu nav ul {
+    list-style-type: none;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.menu nav ul li {
+    margin: 10px 0;
+}
+
+.menu nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    display: block;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.menu nav ul li a:hover {
+    background-color: white;
+    color: #1A2341;
+}
+
+.menu nav ul li a.active {
+    background-color: white;
+    color: #1A2341;
+}
+
+.menu .vehiculo {
+    max-width: 100%;
+    margin-top: auto;
+}
+
+/* Sección derecha */
+.right-section {
+    flex: 2;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    padding: 20px;
+}
+
+.right-section h1 {
+    color: #1A2341;
+    font-size: 42px;
+    margin-bottom: 30px;
+}
+
+/* Formulario */
+form {
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+form h1 {
+    text-align: center;
+    color: #1A2341;
+    font-size: 42px;
+}
+
+/* Filas del formulario */
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    flex-wrap: wrap; 
+}
+
+/* Grupos de formulario */
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Componentes del Formulario*/
+label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+input, select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Menu de verificaciones exterior, interior, asesorios y otros*/
+.tabs {
+    display: flex;
+    margin: 20px 0;
+    justify-content: space-around;
+}
+
+.tablink {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    color: #1A2341;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tablink:hover {
+    background-color: #1A2341;
+    color: white;
+}
+
+.tablink.active {
+    background-color: #1A2341;
+    color: #fff;
+}
+
+.tabcontent {
+    display: none;
+    background-color: #ffffff;
+    
+}
+
+iframe {
+    padding: 20px;
+    border: none;
+    width: 100%;
+    height: 600px;
+    display: block;
+    position: relative;
+}
+
+/* Contenedor de imágenes */
+.foto-apartado-container {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    flex-wrap: wrap;
+}
+
+.foto-apartado {
+    width: 48%;
+    text-align: center;
+}
+
+.foto-apartado h3 {
+    font-size: 16px;
+    color: #1A2341;
+    margin-bottom: 10px;
+}
+
+.foto-preview {
+    width: 70%;
+    height: auto;
+    border-radius: 10px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.foto-preview:hover {
+    background-color: #d6d6d6;
+}
+
+.foto-apartado p{
+    font-size: 16px;
+    font-weight: bold;
+    color: #1A2341;
+    margin-bottom: 10px;
+}
+
+/* Estilos del la camara */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+}
+
+video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Botónes */
+.btn {
+    background-color: #1A2341;
+    color: #ffffff;
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 30%;
+}
+
+.btn:hover {
+    background-color: #01327c;
+}
+
+.btn-foto {
+    margin-top: 10px;
+    padding: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-close {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Pantallas pequeñas (menos de 768px) */
+@media (max-width: 768px) {
+    .menu {
+        flex: 1;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .right-section {
+        padding: 1em;
+    }
+
+    .foto-apartado {
+        width: 100%; /* Cambiar a 100% en pantallas pequeñas */
+    }
+
+    iframe {
+        height: 400px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .btn-foto, .btn-close {
+        width: 100%;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+    form h1 {
+        font-size: 24px;
+    }
+
+    .foto-apartado h3 {
+        font-size: 14px;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    iframe {
+        height: 300px;
+    }
+
+    .foto-apartado p {
+        font-size: 14px;
+    }
+}
