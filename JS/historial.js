@@ -14,7 +14,7 @@ function guardarHistorial() {
         km: document.getElementById("km").value
     };
 
-    fetch("../php/guardar_historial.php", {
+    fetch("../php/guardar_historial.html", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"

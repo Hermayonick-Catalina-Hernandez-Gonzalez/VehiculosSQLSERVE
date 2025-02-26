@@ -11,7 +11,7 @@ function buscarVehiculo() {
         return;
     }
 
-    fetch(`http://localhost/xampp/VehiculosFGJ/php/buscarVehiculo.php?numero_economico=${numeroEconomico}`)
+    fetch(`http://localhost/xampp/VehiculosSQLSERVE/php/buscarVehiculo.php?numero_economico=${numeroEconomico}`)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
@@ -22,6 +22,7 @@ function buscarVehiculo() {
                     backdrop: false
                 });
             } else {
+                // Asegurarse de que los campos del formulario se actualizan con los datos
                 document.getElementById("placa").value = data.placa || "";
                 document.getElementById("serie").value = data.serie || "";
                 document.getElementById("color").value = data.color || "";

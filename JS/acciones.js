@@ -3,8 +3,35 @@ function salir() {
 }
 
 function ver(numeroEconomico) {
-    window.location.href = "../vistas/historial.php?numero_economico=" + encodeURIComponent(numeroEconomico);
+    // Guardamos el número económico en el localStorage
+    localStorage.setItem('numeroEconomico', numeroEconomico);
+    // Redirigimos a la página historial.html sin el número económico en la URL
+    window.location.href = "../vistas/historial.html";
 }
+
+// Recuperar el número económico desde localStorage
+let numeroEconomico = localStorage.getItem('numeroEconomico');
+    
+if (numeroEconomico) {
+    // Realizamos una solicitud AJAX al archivo PHP que obtiene los detalles del vehículo
+    fetch('../php/obtenerVehiculo.php?numeroEconomico=' + numeroEconomico)
+        .then(response => response.json())
+        .then(data => {
+            // Aquí podemos manejar los datos del vehículo y mostrarlos en la página
+            if (data) {
+                document.getElementById('numeroEconomico').textContent = data.numero_economico;
+                document.getElementById('placa').textContent = data.placa;
+                document.getElementById('serie').textContent = data.serie;
+                document.getElementById('color').textContent = data.color;
+                document.getElementById('clase').textContent = data.clase_vehiculo;
+                document.getElementById('marca').textContent = data.marca_vehiculo;
+                document.getElementById('submarca').textContent = data.submarca;
+                document.getElementById('modelo').textContent = data.modelo_vehiculo;
+            }
+        })
+        .catch(error => console.error('Error al obtener los datos del vehículo:', error));
+}
+
 
 function regresar() {
     window.location.href = "../vistas/inicio.php";

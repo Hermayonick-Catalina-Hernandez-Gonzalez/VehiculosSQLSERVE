@@ -1,5 +1,5 @@
 <?php
-require '../php/conexion.php'; // Asegúrate de conectar a la BD correctamente
+include '../php/conexion.php';  // Asegúrate de conectar a la BD correctamente
 
 $correo = "prueba@fgj.tam";
 $contraseña = "prueba";

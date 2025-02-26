@@ -1,6 +1,4 @@
-
 <link rel="stylesheet" href="../css/stylestabla.css">
-
 <table class="verification-table">
     <thead>
         <tr>
@@ -13,63 +11,63 @@
     <tbody>
         <tr>
             <td>Volante</td>
-            <td><input type="radio" name="volante"></td>
-            <td><input type="radio" name="volante"></td>
-            <td><input type="radio" name="volante"></td>
+            <td><input type="radio" name="volante" value="bien"></td>
+            <td><input type="radio" name="volante" value="regular"></td>
+            <td><input type="radio" name="volante" value="mal"></td>
         </tr>
         <tr>
             <td>Bocina</td>
-            <td><input type="radio" name="bocina"></td>
-            <td><input type="radio" name="bocina"></td>
-            <td><input type="radio" name="bocina"></td>
+            <td><input type="radio" name="bocina" value="bien"></td>
+            <td><input type="radio" name="bocina" value="regular"></td>
+            <td><input type="radio" name="bocina" value="mal"></td>
         </tr>
         <tr>
             <td>Espejos</td>
-            <td><input type="radio" name="espejosI"></td>
-            <td><input type="radio" name="espejosI"></td>
-            <td><input type="radio" name="espejosI"></td>
+            <td><input type="radio" name="espejosI" value="bien"></td>
+            <td><input type="radio" name="espejosI" value="regular"></td>
+            <td><input type="radio" name="espejosI" value="mal"></td>
         </tr>
         <tr>
             <td>Tapetes</td>
-            <td><input type="radio" name="tapetes"></td>
-            <td><input type="radio" name="tapetes"></td>
-            <td><input type="radio" name="tapetes"></td>
+            <td><input type="radio" name="tapetes" value="bien"></td>
+            <td><input type="radio" name="tapetes" value="regular"></td>
+            <td><input type="radio" name="tapetes" value="mal"></td>
         </tr>
         <tr>
             <td>A/C</td>
-            <td><input type="radio" name="A/C"></td>
-            <td><input type="radio" name="A/C"></td>
-            <td><input type="radio" name="A/C"></td>
+            <td><input type="radio" name="A/C" value="bien"></td>
+            <td><input type="radio" name="A/C" value="regular"></td>
+            <td><input type="radio" name="A/C" value="mal"></td>
         </tr>
         <tr>
             <td>Tablero</td>
-            <td><input type="radio" name="tablero"></td>
-            <td><input type="radio" name="tablero"></td>
-            <td><input type="radio" name="tablero"></td>
+            <td><input type="radio" name="tablero" value="bien"></td>
+            <td><input type="radio" name="tablero" value="regular"></td>
+            <td><input type="radio" name="tablero" value="mal"></td>
         </tr>
         <tr>
             <td>Radio</td>
-            <td><input type="radio" name="radio"></td>
-            <td><input type="radio" name="radio"></td>
-            <td><input type="radio" name="radio"></td>
+            <td><input type="radio" name="radio" value="bien"></td>
+            <td><input type="radio" name="radio" value="regular"></td>
+            <td><input type="radio" name="radio" value="mal"></td>
         </tr>
         <tr>
             <td>Encendedor</td>
-            <td><input type="radio" name="encendedor"></td>
-            <td><input type="radio" name="encendedor"></td>
-            <td><input type="radio" name="encendedor"></td>
+            <td><input type="radio" name="encendedor" value="bien"></td>
+            <td><input type="radio" name="encendedor" value="regular"></td>
+            <td><input type="radio" name="encendedor" value="mal"></td>
         </tr>
         <tr>
             <td>Asientos</td>
-            <td><input type="radio" name="asientos"></td>
-            <td><input type="radio" name="asientos"></td>
-            <td><input type="radio" name="asientos"></td>
+            <td><input type="radio" name="asientos" value="bien"></td>
+            <td><input type="radio" name="asientos" value="regular"></td>
+            <td><input type="radio" name="asientos" value="mal"></td>
         </tr>
         <tr>
             <td>Luces</td>
-            <td><input type="radio" name="luces"></td>
-            <td><input type="radio" name="luces"></td>
-            <td><input type="radio" name="luces"></td>
+            <td><input type="radio" name="luces" value="bien"></td>
+            <td><input type="radio" name="luces" value="regular"></td>
+            <td><input type="radio" name="luces" value="mal"></td>
         </tr>
 
         <tr>
@@ -81,3 +79,33 @@
         </tr>
     </tbody>
 </table>
+<script src="../JS/verificaicon.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.parent.postMessage({ type: "loadRadios" }, "*");
+    
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener("change", function () {
+                window.parent.postMessage({
+                    type: "saveRadio",
+                    name: radio.name,
+                    value: radio.value
+                }, "*");
+            });
+        });
+    
+        window.addEventListener("message", function (event) {
+            if (event.data.type === "restoreRadios") {
+                const savedValue = event.data.values[event.data.name];
+                if (savedValue) {
+                    const radio = document.querySelector(`input[name="${event.data.name}"][value="${savedValue}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                    }
+                }
+            }
+        });
+    });
+    </script>
+    

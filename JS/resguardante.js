@@ -1,10 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Obtener y asignar la fecha actual al input de tipo 'date'
     var fechaInput = document.getElementById('fecha');
     var today = new Date();
     var formattedDate = today.toISOString().split('T')[0];
-
-    // Asignar la fecha actual al campo
     fechaInput.value = formattedDate;
+
+    // Recuperar datos guardados en localStorage
+    let inputs = document.querySelectorAll("input");
+    inputs.forEach(input => {
+        let savedValue = localStorage.getItem(input.id);
+        if (savedValue) {
+            input.value = savedValue;
+        }
+
+        // Guardar cada cambio en localStorage
+        input.addEventListener("input", function () {
+            localStorage.setItem(input.id, input.value);
+        });
+    });
 });
 
 // Redirigir a la siguiente página
@@ -12,16 +25,26 @@ function siguiente() {
     window.location.href = "../../vistas/formulario/unidadVehicular.html";
 }
 
-// Buscar empleados y guardar datos obtenidos
+// Función para normalizar el nombre (quitar acentos y convertir a minúsculas)
+function normalizarTexto(texto) {
+    // Convertir texto a minúsculas y quitar acentos
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 function buscarEmpleados() {
     let resguardante = document.getElementById("resguardante").value.trim();
     let resguardanteInterno = document.getElementById("resguardante_interno").value.trim();
 
+    // Si ambos campos están vacíos, no hacer la búsqueda
     if (resguardante === "" && resguardanteInterno === "") {
         return;
     }
 
-    let url = `http://localhost/xampp/VehiculosFGJ/php/buscarEmpleado.php?nombre=${encodeURIComponent(resguardante || resguardanteInterno)}`;
+    // Normalizar el nombre (quitar acentos y convertir a minúsculas)
+    let nombreNormalizado = normalizarTexto(resguardante || resguardanteInterno);
+
+    // Llamar al backend con el nombre normalizado
+    let url = `http://localhost/xampp/VehiculosSQLSERVE/php/buscarEmpleado.php?nombre=${encodeURIComponent(nombreNormalizado)}`;
 
     fetch(url)
         .then(response => response.json())
@@ -36,15 +59,17 @@ function buscarEmpleados() {
                     backdrop: false
                 });
             } else {
+                // Si el resguardante es encontrado, actualiza los campos
                 if (resguardante) {
-                    console.log("Datos recibidos:", data);
-
+                    // Actualizar los campos del resguardante
+                    document.getElementById("resguardante").value = data.nombre || resguardante; 
                     document.getElementById("cargo").value = data.cargo || "";
                     document.getElementById("fiscalia_general").value = data.fiscalia_general || "";
                     document.getElementById("fiscalia_especializada_en").value = data.fiscalia_especializada_en || "";
                     document.getElementById("vicefiscalia_en").value = data.vicefiscalia_en || "";
                     document.getElementById("direccion_general").value = data.direccion_general || "";
                     document.getElementById("departamento_area").value = data.departamento_area || "";
+
                     // Guardar en localStorage
                     localStorage.setItem("cargo", data.cargo || "");
                     localStorage.setItem("fiscalia_general", data.fiscalia_general || "");
@@ -55,10 +80,12 @@ function buscarEmpleados() {
                 }
 
                 if (resguardanteInterno) {
+                    // Si el campo resguardanteInterno tiene valor, actualizar los datos internos
                     document.getElementById("cargo_interno").value = data.cargo || "";
                     document.getElementById("numero_empleado").value = data.numero_empleado || "";
                     document.getElementById("celular").value = data.celular || "";
 
+                    // Guardar en localStorage
                     localStorage.setItem("cargo_interno", data.cargo || "");
                     localStorage.setItem("numero_empleado", data.numero_empleado || "");
                     localStorage.setItem("celular", data.celular || "");
@@ -82,7 +109,6 @@ function buscarEmpleados() {
             });
         });
 }
-
 
 // Limpiar localStorage solo cuando el usuario presiona "Aceptar"
 function finalizarFormulario() {

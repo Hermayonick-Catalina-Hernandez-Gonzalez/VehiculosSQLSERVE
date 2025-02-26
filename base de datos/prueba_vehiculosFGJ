@@ -39,81 +39,6 @@ CREATE TABLE vehiculos (
     modelo_vehiculo INT NOT NULL
 );
 
--- Crear la tabla elementos_verificacion
-CREATE TABLE elementos_verificacion (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL UNIQUE
-);
-
--- Crear la tabla Verificacion
-CREATE TABLE Verificacion (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    vehiculo_numeroEconomico INT NOT NULL,
-    elemento_id INT NOT NULL,
-    estado VARCHAR(10) CHECK (estado IN ('Bien', 'Regular', 'Mal')) NOT NULL,
-    aprobado VARCHAR(2) CHECK (aprobado IN ('Sí', 'No')) NOT NULL,
-    FOREIGN KEY (vehiculo_numeroEconomico) REFERENCES vehiculos(numero_economico),
-    FOREIGN KEY (elemento_id) REFERENCES elementos_verificacion(id)
-);
-
--- Crear la tabla fotos
-CREATE TABLE fotos (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    secure_id VARCHAR(64) NOT NULL,
-    nombre_archivo VARCHAR(256) NOT NULL,
-    tamaño BIGINT NOT NULL CHECK(tamaño > 0),
-    observacion VARCHAR(1024) DEFAULT NULL,
-    vehiculo_numeroEconomico INT NOT NULL,
-    FOREIGN KEY (vehiculo_numeroEconomico) REFERENCES vehiculos(numero_economico)
-);
-
--- Crear la tabla Historial
-CREATE TABLE Historial (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    fecha DATE NOT NULL,
-    municipio VARCHAR(50) NOT NULL,
-    FGJRM VARCHAR(50) NOT NULL,
-    resguardante_id VARCHAR(20) NOT NULL,
-    licencia VARCHAR(20) NOT NULL,
-    vigencia_licencia DATE NOT NULL,
-    resguardante_interno_id VARCHAR(20) NOT NULL,
-    licencia_interno VARCHAR(20) NOT NULL,
-    vigencia_licencia_interno DATE NOT NULL,
-    vehiculo_numeroEconomico INT NOT NULL,
-    tipo VARCHAR(10) CHECK (tipo IN ('Propio', 'Arrendado', 'Decomisado')) NOT NULL,
-    kilometraje INT NOT NULL CHECK(kilometraje >= 0),
-    verificacion_id INT,
-    fotos_id INT,
-    documento_1 VARBINARY(MAX),
-    documento_2 VARBINARY(MAX),
-    FOREIGN KEY (vehiculo_numeroEconomico) REFERENCES vehiculos(numero_economico),
-    FOREIGN KEY (resguardante_id) REFERENCES empleados(numero_empleado),
-    FOREIGN KEY (resguardante_interno_id) REFERENCES empleados(numero_empleado),
-    FOREIGN KEY (verificacion_id) REFERENCES Verificacion(id),
-    FOREIGN KEY (fotos_id) REFERENCES fotos(id)
-);
-
--- Crear la vista vista_historial
-GO
-CREATE VIEW vista_historial AS
-SELECT 
-    h.id AS historial_id, h.fecha, h.municipio, h.FGJRM, 
-    e1.nombre AS resguardante_nombre, e1.cargo AS resguardante_cargo, 
-    e1.numero_empleado AS resguardante_numero, e1.celular AS resguardante_celular, 
-    e2.nombre AS resguardante_interno_nombre, e2.cargo AS resguardante_interno_cargo, 
-    e2.numero_empleado AS resguardante_interno_numero, e2.celular AS resguardante_interno_celular,
-    v.numero_economico AS vehiculo_id, v.numero_economico, v.placa, v.serie, v.color, 
-    v.clase_vehiculo, v.marca_vehiculo, v.submarca, v.modelo_vehiculo,
-    ver.id AS verificacion_id, ver.elemento_id AS verificacion_elemento, 
-    ver.estado AS verificacion_estado, ver.aprobado AS verificacion_aprobado,
-    f.id AS foto_id, f.secure_id, f.nombre_archivo, f.tamaño, f.observacion
-FROM Historial h
-JOIN empleados e1 ON h.resguardante_id = e1.numero_empleado 
-LEFT JOIN empleados e2 ON h.resguardante_interno_id = e2.numero_empleado 
-JOIN vehiculos v ON h.vehiculo_numeroEconomico = v.numero_economico
-LEFT JOIN fotos f ON h.fotos_id = f.id
-LEFT JOIN Verificacion ver ON h.verificacion_id = ver.id;
-GO
 
 
 -- Insertar empleados de prueba
@@ -132,3 +57,4 @@ INSERT INTO vehiculos (numero_economico, placa, serie, color, clase_vehiculo, ma
 (103, 'LMN-789', '0Z9Y8X7W6V5U4T3S2', 'Negro', 'Camioneta Blindada', 'Ford', 'F-150', 2021),
 (104, 'PQR-012', '3C4B5A6D7E8F9G1H2', 'Blanco', 'Pickup', 'Chevrolet', 'Silverado', 2022),
 (105, 'STU-345', '1H2G3F4E5D6C7B8A9', 'Gris', 'Sedán', 'Nissan', 'Altima', 2020);
+
