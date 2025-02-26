@@ -1,33 +1,33 @@
 <?php
-include "conexion.php";
+require "../php/conexion.php";
+session_start();
 
-// Verifica si los datos fueron enviados a través del formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'];
     $contra = $_POST['contra'];
 
-    $sql = "SELECT id, Correo, Contraseña FROM Usuarios WHERE Correo = ?";
-    $params = array($correo);
-    $stmt = sqlsrv_query($conn, $sql, $params);
+    try {
+        $sql = "SELECT * FROM usuarios WHERE correo = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$correo]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($stmt === false) {
-        echo json_encode(["status" => "error", "message" => "Error en la consulta."]);
-        exit();
-    }
-
-    $usuario = sqlsrv_fetch_object($stmt);
-
-    if (!$usuario) {
-        echo json_encode(["status" => "error", "message" => "¡Correo no encontrado!"]);
-    } else {
-        if ($contra === $usuario->Contraseña) {
-            echo json_encode(["status" => "success"]);
+        if ($usuario) {
+            if (password_verify($contra, $usuario['contra'])) {
+                $_SESSION['usuario_id'] = $usuario['id'];
+                $_SESSION['correo'] = $usuario['correo'];
+                header("Location: ../vistas/inicio.php");
+                exit();
+            } else {
+                $_SESSION['error'] = "Contraseña incorrecta";
+            }
         } else {
-            echo json_encode(["status" => "error", "message" => "Contraseña incorrecta."]);
+            $_SESSION['error'] = "No se encontró un usuario con ese correo";
         }
+    } catch (PDOException $e) {
+        $_SESSION['error'] = "Error de conexión: " . $e->getMessage();
     }
-
-    sqlsrv_free_stmt($stmt);
-    sqlsrv_close($conn);
+    
+    header("Location: ../vistas/index.php");
+    exit();
 }
-?>

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificación Vehicular</title>
-    <link rel="stylesheet" href="../../css/stylesformulario.css">
-</head>
-<body>
-    <div class="container">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Verificación Vehicular</title>
+        <link rel="shortcut icon" href="../../img/Icono.png" />
+        <link rel="stylesheet" href="../../css/stylesformulario.css">
+        <link rel="stylesheet" href="../../css/stylestabla.css">
+    </head>
+    <body>
+
         <!-- Sección izquierda (logo y menú) -->
         <div class="menu">
             <img src="../../img/Logo2.png" alt="Logo FGJ" class="logo">
@@ -24,33 +26,31 @@
 
         <!-- Sección derecha (formulario) -->
         <div class="right-section">
-            <form id="formularioVerificacion">
-                <h1>Verificacion Vehicular</h1>
-            
-                <!-- Menú para las categorías -->
-                <div class="tabs">
-                    <button class="tablink" id="exterior" onclick="openTab(event, 'Exterior')">Exterior</button>
-                    <button class="tablink" id="interior" onclick="openTab(event, 'Interior')">Interior</button>
-                    <button class="tablink" id="accesorios" onclick="openTab(event, 'Accesorios')">Accesorios y otros</button>
-                </div>
-            
-                 <!-- Contenido para Exterior, Interior y Accesorios -->
-                <div id="Exterior" class="tabcontent">
-                    <iframe src="../../tablas/exterio.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
-                </div>
-            
-                <div id="Interior" class="tabcontent">
-                    <iframe src="../../tablas/interior.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
-                </div>
-            
-                <div id="Accesorios" class="tabcontent">
-                    <iframe src="../../tablas/asesorios.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
-                </div>
-            </form>
-            <button class="btn" type="button" onclick="nextTab()">Siguiente</button>
+            <h1>Verificacion Vehicular</h1>
+            <!-- Menú para las categorías -->
+            <div class="tabs">
+                <button class="tablink" id="exterior" onclick="openTab(event, 'Exterior')">Exterior</button>
+                <button class="tablink" id="interior" onclick="openTab(event, 'Interior')">Interior</button>
+                <button class="tablink" id="accesorios" onclick="openTab(event, 'Accesorios')">Accesorios y otros</button>
+            </div>
+
+            <!-- Contenido para Exterior, Interior y Accesorios -->
+            <div id="Exterior" class="tabcontent">
+                <iframe src="../../tablas/exterio.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
+            </div>
+
+            <div id="Interior" class="tabcontent">
+                <iframe src="../../tablas/interior.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
+            </div>
+
+            <div id="Accesorios" class="tabcontent">
+                <iframe src="../../tablas/asesorios.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
+            </div>
+
+            <button class="btn" type="button"  onclick="nextTab()">Siguiente</button>
         </div>
-    </div>
-    <script src="../../js/activado.js"></script>
-    <script src="../../js/verificaicon.js"></script>
-</body>
+
+        <script src="../../JS/activado.js"></script>
+        <script src="../../JS/verificaicon.js"></script>
+    </body>
 </html>

@@ -5,7 +5,7 @@ body {
     display: flex;
     height: 100vh;
     flex-direction: column; 
-    background-color: #f9f9f9;
+    background-color: #ffffff;
 }
 
 /* Contenedor principal */
@@ -80,69 +80,3 @@ select {
     box-sizing: border-box;
 }
 
-/* Responsivo */
-
-/* Pantallas medianas a pequeñas (Tablets y menores de 768px) */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        padding: 1em;
-    }
-
-    .menu {
-        min-width: 0;
-    }
-
-    .right-section {
-        flex: 1;
-        padding: 1em;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-    }
-
-    form {
-        max-width: 100%;
-        padding: 1.5em;
-    }
-
-    h1 {
-        font-size: 28px;
-    }
-
-    .tabs {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .tablink {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    .btn {
-        font-size: 14px;
-        padding: 10px;
-    }
-}
-
-/* Pantallas muy pequeñas (menos de 480px) */
-@media (max-width: 480px) {
-    form h1 {
-        font-size: 24px;
-    }
-
-    .btn {
-        font-size: 12px;
-        padding: 8px;
-    }
-
-    .tabs {
-        flex-direction: column;
-    }
-
-    .tablink {
-        font-size: 12px;
-        padding: 8px;
-    }
-}

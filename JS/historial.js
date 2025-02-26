@@ -1,34 +1,33 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Obtener matrícula de la URL
-    const params = new URLSearchParams(window.location.search);
-    const matricula = params.get("matricula");
+function guardarHistorial() {
+    const datos = {
+        fecha: document.getElementById("fecha").value,
+        municipio: document.getElementById("municipio").value,
+        FGJRM: document.getElementById("FGJRM").value,
+        resguardante_id: document.getElementById("resguardante").value,
+        licencia: document.getElementById("licencia").value,
+        vigencia: document.getElementById("vigencia").value,
+        resguardante_interno: document.getElementById("resguardante_interno").value,
+        licencia_interna: document.getElementById("licencia_interna").value,
+        vigencia_interna: document.getElementById("vigencia_interna").value,
+        numero_economico: document.getElementById("numero_economico").value,
+        tipo: document.querySelector('input[name="condicion"]:checked').value, // Para radio buttons
+        km: document.getElementById("km").value
+    };
 
-    if (!matricula) {
-        Swal.fire("Oops...", "No se encontró información del vehículo.", "error");
-        return;
-    }
-
-    // Hacer la petición al servidor
-    fetch(`../PHP/historial.php?matricula=${matricula}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                Swal.fire("Oops...", data.error, "error");
-                return;
-            }
-
-            // Insertar los datos en el HTML
-            document.getElementById("num_economico").textContent = data.num_economico;
-            document.getElementById("placa").textContent = data.placa;
-            document.getElementById("serie").textContent = data.serie;
-            document.getElementById("color").textContent = data.color;
-            document.getElementById("clase").textContent = data.clase;
-            document.getElementById("marca").textContent = data.marca;
-            document.getElementById("submarca").textContent = data.submarca;
-            document.getElementById("modelo").textContent = data.modelo;
-        })
-        .catch(error => {
-            console.error("Error al obtener datos:", error);
-            Swal.fire("Oops...", "Error al cargar la información del vehículo.", "error");
-        });
-});
+    fetch("../php/guardar_historial.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams(datos).toString()
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire("Éxito", data.success, "success");
+        } else {
+            Swal.fire("Error", data.error, "error");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
