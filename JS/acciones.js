@@ -61,19 +61,24 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function buscar() {
-    const searchText = document.getElementById('search').value.toLowerCase();
+    const searchText = normalizarTexto(document.getElementById('search').value.toLowerCase());
     const rows = document.querySelectorAll('#vehiculos tr');
     rows.forEach(row => {
         const cells = row.getElementsByTagName('td');
         let match = false;
         for (let i = 0; i < cells.length; i++) {
-            if (cells[i].textContent.toLowerCase().includes(searchText)) {
+            if (normalizarTexto(cells[i].textContent.toLowerCase()).includes(searchText)) {
                 match = true;
                 break;
             }
         }
         row.style.display = match ? '' : 'none';
     });
+}
+
+// Función para normalizar texto (eliminar acentos y convertir a minúsculas)
+function normalizarTexto(texto) {
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
 function mostrarSelectVehiculo() {
@@ -109,17 +114,17 @@ function togglePassword() {
 }
 
 function buscarHistorial() {
-    const searchText = document.getElementById('search').value.toLowerCase();
+    const searchText = normalizarTexto(document.getElementById('search').value.toLowerCase());
     const historyCards = document.querySelectorAll('#history-section .history-card');
 
     historyCards.forEach(card => {
-        const fecha = card.querySelector('p:nth-child(1)').textContent.toLowerCase();
-        const municipio = card.querySelector('p:nth-child(2)').textContent.toLowerCase();
-        const resguardante = card.querySelector('p:nth-child(3)').textContent.toLowerCase();
-        const resguardanteInterno = card.querySelector('p:nth-child(4)').textContent.toLowerCase();
-        const numEmpleado = card.querySelector('p:nth-child(5)').textContent.toLowerCase();
+        const fecha = normalizarTexto(card.querySelector('p:nth-child(1)').textContent.toLowerCase());
+        const municipio = normalizarTexto(card.querySelector('p:nth-child(2)').textContent.toLowerCase());
+        const resguardante = normalizarTexto(card.querySelector('p:nth-child(3)').textContent.toLowerCase());
+        const resguardanteInterno = normalizarTexto(card.querySelector('p:nth-child(4)').textContent.toLowerCase());
+        const numEmpleado = normalizarTexto(card.querySelector('p:nth-child(5)').textContent.toLowerCase());
 
-        // Verifica si alguno de los campos coincide con el texto de búsqueda
+        // Verifica si alguno de los campos normalizados coincide con el texto de búsqueda
         if (
             fecha.includes(searchText) ||
             municipio.includes(searchText) ||
