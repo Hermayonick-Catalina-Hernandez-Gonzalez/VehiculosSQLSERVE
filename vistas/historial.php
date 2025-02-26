@@ -23,15 +23,18 @@ try {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial Vehicular</title>
+    <link rel="shortcut icon" href="../img/Icono.png" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="../css/styleshistorial.css">
 </head>
+
 <body>
     <header class="head">
         <div class="esquina-container">
@@ -64,26 +67,27 @@ try {
                 <p><strong>Modelo:</strong> <?php echo htmlspecialchars($row["modelo_vehiculo"]); ?></p>
             </div>
         </div>
-    </div>
 
-    <div class="barra-busqueda">
-        <input type="text" id="search" placeholder="Buscar..." oninput="buscarHistorial()">
-        <img src="../img/Buscador.png" alt="Buscar" class="icono-buscar">
-    </div>
 
-    <div class="history-section" id="history-section">
-        <div class="history-card">
-            <div>
-                <p><strong>Fecha:</strong> 25 de enero 2023</p>
-                <p><strong>Municipio: </strong>Reynosa</p>
-                <p><strong>Resguardante: </strong>Juan López</p>
-                <p><strong>Resguardante Interno: </strong>Jose Luis</p>
-                <p><strong>N° Empleado: </strong>34</p>
-                <p><strong>Observaciones: </strong>Golpes en la puerta de lado derecho</p>
+        <div class="barra-busqueda">
+            <input type="text" id="search" placeholder="Buscar..." oninput="buscarHistorial()">
+            <img src="../img/Buscador.png" alt="Buscar" class="icono-buscar">
+        </div>
+
+        <div class="history-section" id="history-section">
+            <div class="history-card">
+                <div>
+                    <p><strong>Fecha:</strong> 25 de enero 2023</p>
+                    <p><strong>Municipio: </strong>Reynosa</p>
+                    <p><strong>Resguardante: </strong>Juan López</p>
+                    <p><strong>Resguardante Interno: </strong>Jose Luis</p>
+                    <p><strong>N° Empleado: </strong>34</p>
+                    <p><strong>Observaciones: </strong>Golpes en la puerta de lado derecho</p>
+                </div>
+                <button class="download-button" onclick="generarPDF()">
+                    <img src="../img/descargar.png" alt="Descargar">
+                </button>
             </div>
-            <button class="download-button" onclick="generarPDF()">
-                <img src="../img/descargar.png" alt="Descargar">
-            </button>
         </div>
     </div>
 
@@ -91,4 +95,5 @@ try {
     <script src="../JS/PDF.js"></script>
     <script src="../JS/historial.js"></script>
 </body>
+
 </html>

@@ -6,104 +6,129 @@ GO
 USE prueba_vehiculosFGJ;
 GO
 
--- Tabla Usuarios
-CREATE TABLE Usuarios (
-    Id INT PRIMARY KEY IDENTITY(1,1),
-    Correo VARCHAR(255) NOT NULL,
-    Contraseña VARCHAR(255) NOT NULL
+-- Crear la tabla usuarios
+CREATE TABLE usuarios (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    correo VARCHAR(255) NOT NULL UNIQUE,
+    contra VARCHAR(255) NOT NULL,
+    fecha_registro DATETIME DEFAULT GETDATE()
 );
-GO
 
 -- Crear la tabla empleados
 CREATE TABLE empleados (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    nombre VARCHAR(100),
-    cargo VARCHAR(100),
-    numero_empleado INT UNIQUE, 
-    celular VARCHAR(15)
+    numero_empleado VARCHAR(20) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL, 
+    cargo VARCHAR(100) DEFAULT NULL,
+    celular VARCHAR(15) DEFAULT NULL,
+    fiscalia_general VARCHAR(100) DEFAULT NULL,
+    fiscalia_especializada_en VARCHAR(100) DEFAULT NULL,
+    vicefiscalia_en VARCHAR(100) DEFAULT NULL,
+    direccion_general VARCHAR(100) DEFAULT NULL,
+    departamento_area VARCHAR(100) DEFAULT NULL
 );
-GO
 
 -- Crear la tabla vehiculos
 CREATE TABLE vehiculos (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    numero_economico INT NOT NULL UNIQUE,  
+    numero_economico INT PRIMARY KEY, 
     placa VARCHAR(20) NOT NULL,
-    serie VARCHAR(50) NOT NULL,
+    serie VARCHAR(50) NOT NULL UNIQUE,
     color VARCHAR(30) NOT NULL,
     clase_vehiculo VARCHAR(50) NOT NULL,
     marca_vehiculo VARCHAR(50) NOT NULL,
     submarca VARCHAR(50) NOT NULL,
-    modelo_vehiculo VARCHAR(50) NOT NULL
+    modelo_vehiculo INT NOT NULL
 );
-GO
 
--- Crear la tabla resguardos
-CREATE TABLE resguardos (
+-- Crear la tabla elementos_verificacion
+CREATE TABLE elementos_verificacion (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Crear la tabla Verificacion
+CREATE TABLE Verificacion (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    vehiculo_numeroEconomico INT NOT NULL,
+    elemento_id INT NOT NULL,
+    estado VARCHAR(10) CHECK (estado IN ('Bien', 'Regular', 'Mal')) NOT NULL,
+    aprobado VARCHAR(2) CHECK (aprobado IN ('Sí', 'No')) NOT NULL,
+    FOREIGN KEY (vehiculo_numeroEconomico) REFERENCES vehiculos(numero_economico),
+    FOREIGN KEY (elemento_id) REFERENCES elementos_verificacion(id)
+);
+
+-- Crear la tabla fotos
+CREATE TABLE fotos (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    secure_id VARCHAR(64) NOT NULL,
+    nombre_archivo VARCHAR(256) NOT NULL,
+    tamaño BIGINT NOT NULL CHECK(tamaño > 0),
+    observacion VARCHAR(1024) DEFAULT NULL,
+    vehiculo_numeroEconomico INT NOT NULL,
+    FOREIGN KEY (vehiculo_numeroEconomico) REFERENCES vehiculos(numero_economico)
+);
+
+-- Crear la tabla Historial
+CREATE TABLE Historial (
     id INT IDENTITY(1,1) PRIMARY KEY,
     fecha DATE NOT NULL,
-    municipio VARCHAR(100),
-    FGJRM VARCHAR(50),
-    resguardante VARCHAR(100),
-    cargo VARCHAR(100),
-    licencia VARCHAR(50),
-    vigencia VARCHAR(50),
-    fiscalia_general VARCHAR(100),
-    fiscalia_especializada VARCHAR(100),
-    vicefiscalia VARCHAR(100),
-    direccion_general VARCHAR(100),
-    departamento_area VARCHAR(100),
-    resguardante_interno VARCHAR(100),
-    cargo_interno VARCHAR(100),
-    licencia_interna VARCHAR(50),
-    vigencia_interna VARCHAR(50),
-    numero_empleado INT,  
-    celular VARCHAR(15),
-    numero_economico INT,  
-    foto1 VARBINARY(MAX),  
-    foto2 VARBINARY(MAX),  
-    foto3 VARBINARY(MAX),  
-    foto4 VARBINARY(MAX),  
-    FOREIGN KEY (numero_empleado) REFERENCES empleados(numero_empleado),
-    FOREIGN KEY (numero_economico) REFERENCES vehiculos(numero_economico)
+    municipio VARCHAR(50) NOT NULL,
+    FGJRM VARCHAR(50) NOT NULL,
+    resguardante_id VARCHAR(20) NOT NULL,
+    licencia VARCHAR(20) NOT NULL,
+    vigencia_licencia DATE NOT NULL,
+    resguardante_interno_id VARCHAR(20) NOT NULL,
+    licencia_interno VARCHAR(20) NOT NULL,
+    vigencia_licencia_interno DATE NOT NULL,
+    vehiculo_numeroEconomico INT NOT NULL,
+    tipo VARCHAR(10) CHECK (tipo IN ('Propio', 'Arrendado', 'Decomisado')) NOT NULL,
+    kilometraje INT NOT NULL CHECK(kilometraje >= 0),
+    verificacion_id INT,
+    fotos_id INT,
+    documento_1 VARBINARY(MAX),
+    documento_2 VARBINARY(MAX),
+    FOREIGN KEY (vehiculo_numeroEconomico) REFERENCES vehiculos(numero_economico),
+    FOREIGN KEY (resguardante_id) REFERENCES empleados(numero_empleado),
+    FOREIGN KEY (resguardante_interno_id) REFERENCES empleados(numero_empleado),
+    FOREIGN KEY (verificacion_id) REFERENCES Verificacion(id),
+    FOREIGN KEY (fotos_id) REFERENCES fotos(id)
 );
+
+-- Crear la vista vista_historial
+GO
+CREATE VIEW vista_historial AS
+SELECT 
+    h.id AS historial_id, h.fecha, h.municipio, h.FGJRM, 
+    e1.nombre AS resguardante_nombre, e1.cargo AS resguardante_cargo, 
+    e1.numero_empleado AS resguardante_numero, e1.celular AS resguardante_celular, 
+    e2.nombre AS resguardante_interno_nombre, e2.cargo AS resguardante_interno_cargo, 
+    e2.numero_empleado AS resguardante_interno_numero, e2.celular AS resguardante_interno_celular,
+    v.numero_economico AS vehiculo_id, v.numero_economico, v.placa, v.serie, v.color, 
+    v.clase_vehiculo, v.marca_vehiculo, v.submarca, v.modelo_vehiculo,
+    ver.id AS verificacion_id, ver.elemento_id AS verificacion_elemento, 
+    ver.estado AS verificacion_estado, ver.aprobado AS verificacion_aprobado,
+    f.id AS foto_id, f.secure_id, f.nombre_archivo, f.tamaño, f.observacion
+FROM Historial h
+JOIN empleados e1 ON h.resguardante_id = e1.numero_empleado 
+LEFT JOIN empleados e2 ON h.resguardante_interno_id = e2.numero_empleado 
+JOIN vehiculos v ON h.vehiculo_numeroEconomico = v.numero_economico
+LEFT JOIN fotos f ON h.fotos_id = f.id
+LEFT JOIN Verificacion ver ON h.verificacion_id = ver.id;
 GO
 
--- Crear la tabla verificacion
-CREATE TABLE verificacion (
-    id INT IDENTITY(1,1) PRIMARY KEY,         
-    elemento VARCHAR(255) NOT NULL,            
-    bien BIT DEFAULT NULL,                 
-    regular BIT DEFAULT NULL,              
-    mal BIT DEFAULT NULL,                  
-    observaciones TEXT,                        
-    created_at DATETIME DEFAULT GETDATE(),  
-    updated_at DATETIME DEFAULT GETDATE(), 
-    resguardo_id INT,                          
-    FOREIGN KEY (resguardo_id) REFERENCES resguardos(id) 
-);
-GO
 
 -- Insertar empleados de prueba
-INSERT INTO empleados (nombre, cargo, numero_empleado, celular) VALUES
-('Juan Pérez', 'Jefe de Seguridad', 1001, '555-1234'),
-('Ana González', 'Supervisor de Mantenimiento', 1002, '555-2345'),
-('Carlos Martínez', 'Conductor', 1003, '555-3456'),
-('Laura Rodríguez', 'Mecánico', 1004, '555-4567'),
-('Pedro López', 'Asistente Administrativo', 1005, '555-5678');
-GO
+INSERT INTO empleados (numero_empleado, nombre, cargo, celular, fiscalia_general, fiscalia_especializada_en, vicefiscalia_en, direccion_general, departamento_area) 
+VALUES
+('1001', 'Juan Pérez', 'Jefe de Seguridad', '555-1234', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Delitos Financieros', 'Vicefiscalía de Investigación Criminal', 'Dirección General de Seguridad', 'Departamento de Seguridad'),
+('1002', 'Ana González', 'Supervisor de Mantenimiento', '555-2345', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Derechos Humanos', 'Vicefiscalía de Prevención de Delitos', 'Dirección General de Logística', 'Departamento de Mantenimiento'),
+('1003', 'Carlos Martínez', 'Conductor', '555-3456', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Narcotráfico', 'Vicefiscalía en Investigación de Drogas', 'Dirección General de Transportes', 'Departamento de Transporte'),
+('1004', 'Laura Rodríguez', 'Mecánico', '555-4567', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Criminalística', 'Vicefiscalía en Investigación Técnica', 'Dirección General de Infraestructura', 'Departamento de Reparaciones'),
+('1005', 'Pedro López', 'Asistente Administrativo', '555-5678', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Administración', 'Vicefiscalía en Finanzas', 'Dirección General de Administración', 'Departamento de Administración');
 
 -- Insertar vehículos de prueba
 INSERT INTO vehiculos (numero_economico, placa, serie, color, clase_vehiculo, marca_vehiculo, submarca, modelo_vehiculo) VALUES
-(101, 'ABC-123', '1A2B3C4D5E6F7G8H9', 'Rojo', 'Sedán', 'Toyota', 'Corolla', '2020'),
-(102, 'XYZ-456', '9H8G7F6E5D4C3B2A1', 'Azul', 'SUV', 'Honda', 'CR-V', '2019'),
-(103, 'LMN-789', '0Z9Y8X7W6V5U4T3S2', 'Negro', 'Camión', 'Ford', 'F-150', '2021'),
-(104, 'PQR-012', '3C4B5A6D7E8F9G1H2', 'Blanco', 'Pickup', 'Chevrolet', 'Silverado', '2022'),
-(105, 'STU-345', '1H2G3F4E5D6C7B8A9', 'Gris', 'Sedán', 'Nissan', 'Altima', '2020');
-GO
-
-
--- Insertar empleados de prueba
-INSERT INTO Usuarios (Correo,Contraseña) VALUES
-("prueba@fgj.tam","prueba")
-GO
+(101, 'ABC-123', '1A2B3C4D5E6F7G8H9', 'Rojo', 'Sedán', 'Toyota', 'Corolla', 2020),
+(102, 'XYZ-456', '9H8G7F6E5D4C3B2A1', 'Azul', 'Camioneta Blindada', 'Honda', 'CR-V', 2019),
+(103, 'LMN-789', '0Z9Y8X7W6V5U4T3S2', 'Negro', 'Camioneta Blindada', 'Ford', 'F-150', 2021),
+(104, 'PQR-012', '3C4B5A6D7E8F9G1H2', 'Blanco', 'Pickup', 'Chevrolet', 'Silverado', 2022),
+(105, 'STU-345', '1H2G3F4E5D6C7B8A9', 'Gris', 'Sedán', 'Nissan', 'Altima', 2020);

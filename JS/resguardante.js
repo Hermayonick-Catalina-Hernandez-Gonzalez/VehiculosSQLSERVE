@@ -1,23 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Obtener y asignar la fecha actual al input de tipo 'date'
     var fechaInput = document.getElementById('fecha');
     var today = new Date();
     var formattedDate = today.toISOString().split('T')[0];
+
+    // Asignar la fecha actual al campo
     fechaInput.value = formattedDate;
-
-    // Recuperar datos guardados en localStorage
-    let inputs = document.querySelectorAll("input");
-    inputs.forEach(input => {
-        let savedValue = localStorage.getItem(input.id);
-        if (savedValue) {
-            input.value = savedValue;
-        }
-
-        // Guardar cada cambio en localStorage
-        input.addEventListener("input", function () {
-            localStorage.setItem(input.id, input.value);
-        });
-    });
 });
 
 // Redirigir a la siguiente página
