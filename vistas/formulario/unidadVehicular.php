@@ -1,8 +1,8 @@
 <?php
-session_start(); 
+session_start();
 if ($_SESSION['rol'] != 'verificador') {
-    header("Location: ../../index.php");  
-    exit();  
+    header("Location: ../../index.php");
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -40,71 +40,72 @@ if ($_SESSION['rol'] != 'verificador') {
     <div class="right-section">
         <!-- Formulario-->
         <h1>Datos Vehiculares</h1>
-        <div class="form-row">
-            <!-- Campos de formulario-->
-            <div class="form-group">
-                <label for="numero_economico">Número Económico:</label>
-                <input type="number" id="numero_economico" name="numero_economico" required onchange="buscarVehiculo()">
+        <form id="formularioVehiculo" action="POST">
+            <div class="form-row">
+                <!-- Campos de formulario-->
+                <div class="form-group">
+                    <label for="numero_economico">Número Económico:</label>
+                    <input type="number" id="numero_economico" name="numero_economico" required onchange="buscarVehiculo()">
+                </div>
+
+                <div class="form-group">
+                    <label for="placa">Placa:</label>
+                    <input type="text" id="placa" name="placa" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="serie">Serie:</label>
+                    <input type="text" id="serie" name="serie">
+                </div>
+                <div class="form-group">
+                    <label for="color">Color:</label>
+                    <input type="text" id="color" name="color">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="clase_vehiculo">Clase:</label>
+                    <input type="text" id="clase_vehiculo" name="clase_vehiculo">
+                </div>
+                <div class="form-group">
+                    <label for="marca_vehiculo">Marca:</label>
+                    <input type="text" id="marca_vehiculo" name="marca_vehiculo">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="submarca">Submarca:</label>
+                    <input type="text" id="submarca" name="submarca">
+                </div>
+                <div class="form-group">
+                    <label for="modelo_vehiculo">Modelo:</label>
+                    <input type="text" id="modelo_vehiculo" name="modelo_vehiculo">
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="placa">Placa:</label>
-                <input type="text" id="placa" name="placa" required>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="serie">Serie:</label>
-                <input type="text" id="serie" name="serie">
-            </div>
-            <div class="form-group">
-                <label for="color">Color:</label>
-                <input type="text" id="color" name="color">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="clase_vehiculo">Clase:</label>
-                <input type="text" id="clase_vehiculo" name="clase_vehiculo">
-            </div>
-            <div class="form-group">
-                <label for="marca_vehiculo">Marca:</label>
-                <input type="text" id="marca_vehiculo" name="marca_vehiculo">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="submarca">Submarca:</label>
-                <input type="text" id="submarca" name="submarca">
-            </div>
-            <div class="form-group">
-                <label for="modelo_vehiculo">Modelo:</label>
-                <input type="text" id="modelo_vehiculo" name="modelo_vehiculo">
-            </div>
-        </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="propio">Propio:</label>
+                    <input type="radio" id="propio" name="condicion" value="propio">
+                </div>
+                <div class="form-group">
+                    <label for="aprendado">Arrendado:</label>
+                    <input type="radio" id="aprendado" name="condicion" value="aprendado">
+                </div>
+                <div class="form-group">
+                    <label for="decomisado">Decomisado:</label>
+                    <input type="radio" id="decomisado" name="condicion" value="decomisado">
+                </div>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="propio">Propio:</label>
-                <input type="radio" id="propio" name="condicion" value="propio">
             </div>
-            <div class="form-group">
-                <label for="aprendado">Arrendado:</label>
-                <input type="radio" id="aprendado" name="condicion" value="aprendado">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="km">Kilómetraje:</label>
+                    <input type="number" id="km" name="km">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="decomisado">Decomisado:</label>
-                <input type="radio" id="decomisado" name="condicion" value="decomisado">
-            </div>
-
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="km">Kilómetraje:</label>
-                <input type="number" id="km" name="km">
-            </div>
-        </div>
-
+        </form>
         <button class="btn" type="button" onclick="siguiente()">Siguiente</button>
     </div>
 
