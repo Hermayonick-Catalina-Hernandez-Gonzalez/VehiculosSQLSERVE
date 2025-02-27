@@ -1,7 +1,11 @@
 <?php
+session_start(); 
+if ($_SESSION['rol'] != 'resguardante') {
+    header("Location: ../index.php");
+    exit();  
+}
 include "../php/conexion.php"; 
 
-// Consultar la base de datos y obtener los vehículos
 $vehiculos = [];
 if ($conn) {
     try {

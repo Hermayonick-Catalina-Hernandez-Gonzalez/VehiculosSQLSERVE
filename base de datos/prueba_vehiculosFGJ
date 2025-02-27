@@ -11,6 +11,7 @@ CREATE TABLE usuarios (
     id INT IDENTITY(1,1) PRIMARY KEY,
     correo VARCHAR(255) NOT NULL UNIQUE,
     contra VARCHAR(255) NOT NULL,
+    rol VARCHAR(50) NOT NULL,  -- Nuevo campo para el rol del usuario
     fecha_registro DATETIME DEFAULT GETDATE()
 );
 
@@ -37,6 +38,59 @@ CREATE TABLE vehiculos (
     marca_vehiculo VARCHAR(50) NOT NULL,
     submarca VARCHAR(50) NOT NULL,
     modelo_vehiculo INT NOT NULL
+);
+
+CREATE TABLE fotos ( 
+    id INT IDENTITY(1,1) PRIMARY KEY,  
+    vehiculo_id INT, 
+    nombre_foto VARCHAR(255), 
+    foto VARBINARY(MAX), 
+    observacion TEXT,  
+    historial_id INT,  
+    FOREIGN KEY (historial_id) REFERENCES historial(id),
+    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico) 
+);
+
+
+CREATE TABLE verificacion (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    vehiculo_id INT,  
+    categoria VARCHAR(50),  
+    elemento VARCHAR(255), 
+    estado VARCHAR(20),  
+    historial_id INT,  
+    FOREIGN KEY (historial_id) REFERENCES historial(id),
+    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico)  
+);
+
+CREATE TABLE observaciones_verificacion (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    vehiculo_id INT, 
+    categoria VARCHAR(50), 
+    observacion TEXT,  
+    historial_id INT,  
+    FOREIGN KEY (historial_id) REFERENCES historial(id),
+    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico)  
+);
+
+
+CREATE TABLE historial (
+    id INT IDENTITY(1,1) PRIMARY KEY, 
+    vehiculo_id INT, 
+    resguardante_id VARCHAR(20),  
+    resguardante_interno_id VARCHAR(20),  
+    fecha DATETIME NOT NULL,  
+    municipio VARCHAR(100),
+    FGJRM VARCHAR(100),  
+    licencia VARCHAR(50), 
+    vigencia DATE,  
+    licencia_interna VARCHAR(50),  
+    vigencia_interna DATE, 
+    tipo_condicion VARCHAR(50),  
+    km INT,  
+    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico),  -- Relacionado con vehiculos
+    FOREIGN KEY (resguardante_id) REFERENCES empleados(numero_empleado),  -- Relacionado con empleados
+    FOREIGN KEY (resguardante_interno_id) REFERENCES empleados(numero_empleado)  -- Relacionado con empleados internos
 );
 
 

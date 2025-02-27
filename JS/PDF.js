@@ -6,7 +6,7 @@ function final() {
         showConfirmButton: false,
         backdrop: false
     }).then(() => {
-        window.location.href = '../../vistas/formulario/pdfs.html';
+        window.location.href = '../../vistas/formulario/pdfs.php';
     });
 }
 function generarPDF() {

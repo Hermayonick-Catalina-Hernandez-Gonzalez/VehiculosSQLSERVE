@@ -1,26 +1,10 @@
 <?php
-require "../php/conexion.php";
-
-// Obtener el número económico del vehículo desde la URL
-$numero_economico = $_GET['numero_economico'] ?? '';
-
-// Consulta SQL para obtener los detalles del vehículo
-try {
-    $sql = "SELECT * FROM vehiculos WHERE numero_economico = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$numero_economico]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$row) {
-        echo "<script>alert('No se encontró el vehículo.'); window.history.back();</script>";
-        exit;
-    }
-} catch (PDOException $e) {
-    echo "Error en la consulta: " . $e->getMessage();
-    exit;
+session_start(); 
+if ($_SESSION['rol'] != 'resguardante') {
+    header("Location: ../index.php");
+    exit();  
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -57,17 +41,17 @@ try {
         <div class="profile-section">
             <img src="../img/Vehiculo.png" alt="Foto de vehículo" class="profile-picture">
             <div class="profile-info">
-                <p><strong>Número Económico:</strong> <?php echo htmlspecialchars($row["numero_economico"]); ?></p>
-                <p><strong>Placa:</strong> <?php echo htmlspecialchars($row["placa"]); ?></p>
-                <p><strong>Serie:</strong> <?php echo htmlspecialchars($row["serie"]); ?></p>
-                <p><strong>Color:</strong> <?php echo htmlspecialchars($row["color"]); ?></p>
-                <p><strong>Clase:</strong> <?php echo htmlspecialchars($row["clase_vehiculo"]); ?></p>
-                <p><strong>Marca:</strong> <?php echo htmlspecialchars($row["marca_vehiculo"]); ?></p>
-                <p><strong>Submarca:</strong> <?php echo htmlspecialchars($row["submarca"]); ?></p>
-                <p><strong>Modelo:</strong> <?php echo htmlspecialchars($row["modelo_vehiculo"]); ?></p>
+                <p><strong>Número Económico:</strong> <span id="numeroEconomico"></span></p>
+                <p><strong>Placa:</strong> <span id="placa"></span></p>
+                <p><strong>Serie:</strong> <span id="serie"></span></p>
+                <p><strong>Color:</strong> <span id="color"></span></p>
+                <p><strong>Clase:</strong> <span id="clase"></span></p>
+                <p><strong>Marca:</strong> <span id="marca"></span></p>
+                <p><strong>Submarca:</strong> <span id="submarca"></span></p>
+                <p><strong>Modelo:</strong> <span id="modelo"></span></p>
             </div>
-        </div>
 
+        </div>
 
         <div class="barra-busqueda">
             <input type="text" id="search" placeholder="Buscar..." oninput="buscarHistorial()">

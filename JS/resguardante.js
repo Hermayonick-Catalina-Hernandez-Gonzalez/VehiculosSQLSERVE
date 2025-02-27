@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Redirigir a la siguiente página
 function siguiente() {
-    window.location.href = "../../vistas/formulario/unidadVehicular.html";
+    window.location.href = "../../vistas/formulario/unidadVehicular.php";
 }
 
 // Función para normalizar el nombre (quitar acentos y convertir a minúsculas)

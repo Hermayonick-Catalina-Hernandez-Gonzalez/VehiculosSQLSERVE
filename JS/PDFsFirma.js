@@ -102,5 +102,5 @@ function descargarPDFConFirma(imagenFirma) {
     doc.text("Nombre y Firma", doc.internal.pageSize.getWidth() / 2, y + 12, { align: 'center' });
 
     // Descargar el PDF con la firma
-    doc.save("Verificación.pdf");
+    doc.save("Reglas.pdf");
 }

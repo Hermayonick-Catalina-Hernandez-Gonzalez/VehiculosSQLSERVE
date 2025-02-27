@@ -16,7 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($contra, $usuario['contra'])) {
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['correo'] = $usuario['correo'];
-                header("Location: ../vistas/inicio.php");
+                $_SESSION['rol'] = $usuario['rol'];  // Guardar el rol en la sesión
+
+                // Redirigir según el rol
+                if ($_SESSION['rol'] == 'verificador') {
+                    header("Location: ../vistas/formulario/resguardante.php");  // Página para verificadores
+                } elseif ($_SESSION['rol'] == 'resguardante') {
+                    header("Location: ../vistas/inicio.php");  // Página para resguardantes
+                } 
                 exit();
             } else {
                 $_SESSION['error'] = "Contraseña incorrecta";
@@ -28,6 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['error'] = "Error de conexión: " . $e->getMessage();
     }
     
-    header("Location: ../vistas/index.php");
+    header("Location: ../index.php");
     exit();
 }

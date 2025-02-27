@@ -1,12 +1,13 @@
 function salir() {
-    window.location.href = "../vistas/index.php";
+    window.location.href = "../php/logout.php";  
 }
 
+function cerrar() {
+    window.location.href = "../../php/logout.php";  
+} 
 function ver(numeroEconomico) {
-    // Guardamos el número económico en el localStorage
     localStorage.setItem('numeroEconomico', numeroEconomico);
-    // Redirigimos a la página historial.html sin el número económico en la URL
-    window.location.href = "../vistas/historial.html";
+    window.location.href = "../vistas/historial.php";
 }
 
 // Recuperar el número económico desde localStorage
@@ -42,11 +43,11 @@ function iniciar() {
 }
 
 function editar() {
-    window.location.href = "http://localhost/xampp/VehiculosSQLSERVE/vistas/formulario/resguardante.html";
+    window.location.href = "http://localhost/xampp/VehiculosSQLSERVE/vistas/formulario/resguardante.php";
 }
 
 function siguiente() {
-    window.location.href = "../../vistas/formulario/verificacion.html";
+    window.location.href = "../../vistas/formulario/verificacion.php";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -104,11 +105,11 @@ function togglePassword() {
 
     if (passwordField.type === 'password') {
         passwordField.type = 'text';
-        toggleIcon.src = '../img/cerrar-ojo.png'; // Cambia a la imagen de ojo cerrado
+        toggleIcon.src = 'img/cerrar-ojo.png'; // Cambia a la imagen de ojo cerrado
         toggleIcon.alt = 'Ocultar contraseña';
     } else {
         passwordField.type = 'password';
-        toggleIcon.src = '../img/ojo.png'; // Cambia a la imagen de ojo abierto
+        toggleIcon.src = 'img/ojo.png'; // Cambia a la imagen de ojo abierto
         toggleIcon.alt = 'Mostrar contraseña';
     }
 }
@@ -149,6 +150,6 @@ function final() {
         backdrop: false
     }).then(() => {
         // Redirige a la página de PDFs después de generar el PDF
-        window.location.href = '../../vistas/formulario/pdfs.html';  // Ajusta esta ruta según sea necesario
+        window.location.href = '../../vistas/formulario/pdfs.php';  // Ajusta esta ruta según sea necesario
     });
 }

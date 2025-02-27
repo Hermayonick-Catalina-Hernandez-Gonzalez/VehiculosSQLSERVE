@@ -61,7 +61,7 @@ function nextTab() {
         document.querySelectorAll(".tablink").forEach(btn => btn.classList.remove("active"));
         document.getElementById(tabs[currentTabIndex + 1].toLowerCase()).classList.add("active");
     } else {
-        window.location.href = "../formulario/fotografias.html";
+        window.location.href = "../formulario/fotografias.php";
     }
 }
 
