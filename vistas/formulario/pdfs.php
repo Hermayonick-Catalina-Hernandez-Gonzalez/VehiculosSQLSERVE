@@ -88,7 +88,7 @@ if ($_SESSION['rol'] != 'verificador') {
     <script src="../../JS/resguardante.js"></script>
     <script src="../../JS/unidadVehicular.js"></script>
     <script src="../../JS/fotografias.js"></script>
-    <script src="../../JS/verificaicon.js"></script>
+    <script src="../../JS/verificacion.js"></script>
     <script src="../../JS/acciones.js"></script>
 </body>
 

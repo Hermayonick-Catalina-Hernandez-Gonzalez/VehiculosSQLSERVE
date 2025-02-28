@@ -1,8 +1,8 @@
 <?php
-session_start();
+session_start(); 
 if ($_SESSION['rol'] != 'verificador') {
-    header("Location: ../../index.php");
-    exit();
+    header("Location: ../../index.php");  
+    exit();  
 }
 ?>
 
@@ -35,7 +35,7 @@ if ($_SESSION['rol'] != 'verificador') {
                 <li><a href="../formulario/fotografias.php" class="menu-link">Fotografías de la unidad</a></li>
             </ul>
         </nav>
-        <button class="btn-salir" onclick="cerrar()">
+        <button class="btn-salir" onclick="salir()">
             <img src="../../img/Salir.png" alt="Salir">Salir
         </button>
         <img src="../../img/Vehiculo.png" alt="Vehículo" class="vehiculo">
@@ -44,7 +44,7 @@ if ($_SESSION['rol'] != 'verificador') {
     <!-- Sección del formulario -->
     <div class="right-section">
         <h1>Resguardo Vehicular</h1>
-        <form id="formularioResguardante" action="POST">
+        <form id="formularioResguardante"  action="../../php/insertar_historial.php" action="POST">
             <div class="form-row">
                 <div class="form-group">
                     <label for="fecha">Fecha:</label>
@@ -167,7 +167,7 @@ if ($_SESSION['rol'] != 'verificador') {
     <script src="../../JS/resguardante.js"></script>
     <script src="../../JS/activado.js"></script>
     <script src="../../JS/municipios.js"></script>
-    <script src="../../JS/acciones.js"></script>
+    <script src="../../JS/historial.js"></script>
 </body>
 
 </html>

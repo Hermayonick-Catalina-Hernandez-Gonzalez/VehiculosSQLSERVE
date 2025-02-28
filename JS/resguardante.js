@@ -25,6 +25,9 @@ function siguiente() {
     window.location.href = "../../vistas/formulario/unidadVehicular.php";
 }
 
+function salir() {
+    window.location.href = "../../php/logout.php";  
+}
 // Función para normalizar el nombre (quitar acentos y convertir a minúsculas)
 function normalizarTexto(texto) {
     // Convertir texto a minúsculas y quitar acentos

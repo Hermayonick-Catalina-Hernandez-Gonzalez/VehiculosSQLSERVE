@@ -1,8 +1,8 @@
 <?php
-session_start();
+session_start(); 
 if ($_SESSION['rol'] != 'verificador') {
-    header("Location: ../../index.php");
-    exit();
+    header("Location: ../../index.php");  
+    exit();  
 }
 ?>
 <!DOCTYPE html>
@@ -14,6 +14,7 @@ if ($_SESSION['rol'] != 'verificador') {
     <title>Unidad Vehicular</title>
     <link rel="shortcut icon" href="../../img/Icono.png" />
     <link rel="stylesheet" href="../../css/stylesformulario.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -40,7 +41,7 @@ if ($_SESSION['rol'] != 'verificador') {
     <div class="right-section">
         <!-- Formulario-->
         <h1>Datos Vehiculares</h1>
-        <form id="formularioVehiculo" action="POST">
+        <form id="formularioVehiculo" action="../../php/insertar_historial.php" action="POST">
             <div class="form-row">
                 <!-- Campos de formulario-->
                 <div class="form-group">
@@ -112,6 +113,7 @@ if ($_SESSION['rol'] != 'verificador') {
     <script src="../../JS/activado.js"></script>
     <script src="../../JS/acciones.js"></script>
     <script src="../../JS/unidadVehicular.js"></script>
+    <script src="../../JS/historial.js"></script>
 </body>
 
 </html>

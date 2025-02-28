@@ -1,0 +1,142 @@
+<link rel="stylesheet" href="../css/stylestabla.css">
+<script src="../JS/acciones.js"></script>
+<table class="verification-table">
+    <thead>
+        <tr>
+            <th>Asesorios</th>
+            <th>Si</th>
+            <th>No</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Radio Matra</td>
+            <td><input type="radio" name="radioM" value="si"></td>
+            <td><input type="radio" name="radioM" value="no"></td>
+        </tr>
+        <tr>
+            <td>Estrobos</td>
+            <td><input type="radio" name="estrobos" value="si"></td>
+            <td><input type="radio" name="estrobos" value="no"></td>
+        </tr>
+        <tr>
+            <td>Codigos</td>
+            <td><input type="radio" name="codigos" value="si"></td>
+            <td><input type="radio" name="codigos" value="no"></td>
+        </tr>
+        <tr>
+            <td>Sirenas</td>
+            <td><input type="radio" name="sirenas" value="si"></td>
+            <td><input type="radio" name="sirenas" value="no"></td>
+        </tr>
+        <tr>
+            <td>GPS</td>
+            <td><input type="radio" name="GPS" value="si"></td>
+            <td><input type="radio" name="GPS" value="no"></td>
+        </tr>
+        
+    </tbody>
+    <thead>
+        <tr>
+            <th>Herramientas</th>
+            <th>Si</th>
+            <th>No</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Gato</td>
+            <td><input type="radio" name="gato" value="si"></td>
+            <td><input type="radio" name="gato" value="no"></td>
+        </tr>
+        <tr>
+            <td>L/Cruceta</td>
+            <td><input type="radio" name="L/Cruceta" value="si"></td>
+            <td><input type="radio" name="L/Cruceta" value="no"></td>
+        </tr>
+        <tr>
+            <td>Reflejantes</td>
+            <td><input type="radio" name="reflejantes" value="si"></td>
+            <td><input type="radio" name="reflejantes" value="no"></td>
+        </tr>
+        <tr>
+            <td>Llanta Refraccion</td>
+            <td><input type="radio" name="llantaR" value="si"></td>
+            <td><input type="radio" name="llantaR" value="no"></td>
+        </tr>
+        <tr>
+            <td>Extintor</td>
+            <td><input type="radio" name="extintor" value="si"></td>
+            <td><input type="radio" name="extintor" value="no"></td>
+        </tr>
+
+    </tbody>
+</table>
+
+<label for="tipo_ocupacion">Tipo de Ocupación:</label>
+<select id="tipo_ocupacion" name="tipo_ocupacion"
+    onchange="mostrarSelectVehiculo()">
+    <option value>Seleccione una opción</option>
+    <option value="operativo">Operativo</option>
+    <option value="administrativo">Administrativo</option>
+</select>
+
+<div id="select_operativo" style="display: none;">
+    <label for="tipo_vehiculo_operativo">Tipo de Vehículo (Operativo):</label>
+    <select id="tipo_vehiculo_operativo" name="tipo_vehiculo_operativo">
+        <option value="patrulla">Patrulla</option>
+        <option value="tactico">Táctico</option>
+        <option value="camionetaB">Camioneta Blindada</option>
+        <option value="pickup">Pick UP</option>
+        <option value="sedan">Sedan</option>
+        <option value="rotulado">Rotulado</option>
+        <option value="motocicleta">Motocicleta</option>
+    </select>
+</div>
+
+<div id="select_administrativo" style="display: none;">
+    <label for="tipo_vehiculo_administrativo">Tipo de Vehículo    (Administrativo):</label>
+    <select id="tipo_vehiculo_administrativo"
+        name="tipo_vehiculo_administrativo">
+        <option value="camionetaB">Camioneta Blindada</option>
+        <option value="pickup">Pick UP</option>
+        <option value="sedan">Sedan</option>
+        <option value="rotulado">Rotulado</option>
+    </select>
+</div>
+
+<div>
+
+    <label for="observaciones">Observaciones:</label>
+    <textarea id="observaciones" name="observaciones" rows="4" cols="50"></textarea>
+</div>
+<script src="../JS/verificacion.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.parent.postMessage({ type: "loadRadios" }, "*");
+    
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener("change", function () {
+                window.parent.postMessage({
+                    type: "saveRadio",
+                    name: radio.name,
+                    value: radio.value
+                }, "*");
+            });
+        });
+    
+        window.addEventListener("message", function (event) {
+            if (event.data.type === "restoreRadios") {
+                const savedValue = event.data.values[event.data.name];
+                if (savedValue) {
+                    const radio = document.querySelector(`input[name="${event.data.name}"][value="${savedValue}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                    }
+                }
+            }
+        });
+    });
+    </script>
+    

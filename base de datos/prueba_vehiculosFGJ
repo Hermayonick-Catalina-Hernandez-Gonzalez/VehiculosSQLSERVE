@@ -40,6 +40,26 @@ CREATE TABLE vehiculos (
     modelo_vehiculo INT NOT NULL
 );
 
+CREATE TABLE historial (
+    id INT IDENTITY(1,1) PRIMARY KEY, 
+    vehiculo_id INT, 
+    resguardante_id VARCHAR(20),  
+    resguardante_interno_id VARCHAR(20),  
+    fecha DATETIME NOT NULL,  
+    municipio VARCHAR(100),
+    FGJRM VARCHAR(100),  
+    licencia VARCHAR(50), 
+    vigencia DATE,  
+    licencia_interna VARCHAR(50),  
+    vigencia_interna DATE, 
+    tipo_condicion VARCHAR(50),  
+    km INT,  
+    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico),  -- Relacionado con vehiculos
+    FOREIGN KEY (resguardante_id) REFERENCES empleados(numero_empleado),  -- Relacionado con empleados
+    FOREIGN KEY (resguardante_interno_id) REFERENCES empleados(numero_empleado)  -- Relacionado con empleados internos
+);
+
+
 CREATE TABLE fotos ( 
     id INT IDENTITY(1,1) PRIMARY KEY,  
     vehiculo_id INT, 
@@ -72,27 +92,6 @@ CREATE TABLE observaciones_verificacion (
     FOREIGN KEY (historial_id) REFERENCES historial(id),
     FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico)  
 );
-
-
-CREATE TABLE historial (
-    id INT IDENTITY(1,1) PRIMARY KEY, 
-    vehiculo_id INT, 
-    resguardante_id VARCHAR(20),  
-    resguardante_interno_id VARCHAR(20),  
-    fecha DATETIME NOT NULL,  
-    municipio VARCHAR(100),
-    FGJRM VARCHAR(100),  
-    licencia VARCHAR(50), 
-    vigencia DATE,  
-    licencia_interna VARCHAR(50),  
-    vigencia_interna DATE, 
-    tipo_condicion VARCHAR(50),  
-    km INT,  
-    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico),  -- Relacionado con vehiculos
-    FOREIGN KEY (resguardante_id) REFERENCES empleados(numero_empleado),  -- Relacionado con empleados
-    FOREIGN KEY (resguardante_interno_id) REFERENCES empleados(numero_empleado)  -- Relacionado con empleados internos
-);
-
 
 
 -- Insertar empleados de prueba

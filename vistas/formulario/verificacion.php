@@ -48,7 +48,7 @@ if ($_SESSION['rol'] != 'verificador') {
 
         <!-- Contenido para Exterior, Interior y Accesorios -->
         <div id="Exterior" class="tabcontent">
-            <iframe src="../../tablas/exterio.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
+            <iframe src="../../tablas/exterior.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
         </div>
 
         <div id="Interior" class="tabcontent">
@@ -56,7 +56,7 @@ if ($_SESSION['rol'] != 'verificador') {
         </div>
 
         <div id="Accesorios" class="tabcontent">
-            <iframe src="../../tablas/asesorios.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
+            <iframe src="../../tablas/accesorios.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
         </div>
 
         <button class="btn" type="button" onclick="nextTab()">Siguiente</button>
@@ -64,7 +64,7 @@ if ($_SESSION['rol'] != 'verificador') {
 
     <script src="../../JS/activado.js"></script>
     <script src="../../JS/acciones.js"></script>
-    <script src="../../JS/verificaicon.js"></script>
+    <script src="../../JS/verificacion.js"></script>
 </body>
 
 </html>
