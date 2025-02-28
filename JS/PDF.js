@@ -273,7 +273,7 @@ function generarPDF2(imgData) {
     doc.line(40, y + 15, 560, y + 15);
     y += 35;
 
-    // 📌 Tabla Exterior
+    //  Tabla Exterior
     const colWidthsExterior = [70, 35, 35, 35, 70, 35, 35, 35, 80, 35, 35, 35];
     const cellHeight = 20;
     const startX = 40;
@@ -304,7 +304,7 @@ function generarPDF2(imgData) {
         startY += cellHeight;
     }
 
-    // 📌 Tabla Interior 
+    // Tabla Interior 
     let tableHeadersInterior = [
         "Interior", "B", "R", "M",
         "Interior", "B", "R", "M",
@@ -313,15 +313,15 @@ function generarPDF2(imgData) {
     const colWidthsInterior = [
         70, 35, 35, 35,
         70, 35, 35, 35,
-        185  // 📌 Observaciones ocupa todo el alto de la tabla
+        185 
     ];
 
-    let startYInterior = startY + 1; // 📍 Agregar espacio entre tablas
+    let startYInterior = startY + 1; //  Agregar espacio entre tablas
 
     doc.setFont('helvetica', 'bold');
     xPos = startX;
 
-    // 📌 Dibujar encabezados con bordes para la Tabla Interior
+    //  Dibujar encabezados con bordes para la Tabla Interior
     tableHeadersInterior.forEach((header, index) => {
         drawCell(xPos, startYInterior, colWidthsInterior[index], cellHeight, header, [220, 220, 220]);
         xPos += colWidthsInterior[index];
@@ -329,7 +329,7 @@ function generarPDF2(imgData) {
 
     startYInterior += cellHeight; // Mover hacia abajo para los datos
 
-    // 📌 Dibujar filas de la tabla Interior
+    // Dibujar filas de la tabla Interior
     let numRowsInterior = 5;
     for (let i = 0; i < numRowsInterior; i++) {
         xPos = startX;
@@ -341,12 +341,11 @@ function generarPDF2(imgData) {
 
         startYInterior += cellHeight;
     }
-
-    // 📌 Dibujar un solo cuadro grande para "Observaciones"
+    // Dibujar un solo cuadro grande para "Observaciones"
     drawCell(xPos, startYInterior - (numRowsInterior * cellHeight), colWidthsInterior[colWidthsInterior.length - 1], numRowsInterior * cellHeight, "");
 
 
-    // 📌 Tabla Accesorios
+    //  Tabla Accesorios
     let tableHeadersAccesorios = [
         "Accesorio", "Sí", "No",
         "Interior", "Sí", "No",
@@ -363,7 +362,7 @@ function generarPDF2(imgData) {
     doc.setFont('helvetica', 'bold');
     xPos = startX;
 
-    // 📌 Dibujar encabezados con bordes para la Tabla Accesorios
+    //  Dibujar encabezados con bordes para la Tabla Accesorios
     tableHeadersAccesorios.forEach((header, index) => {
         drawCell(xPos, startYAccesorios, colWidthsAccesorios[index], cellHeight, header, [220, 220, 220]);
         xPos += colWidthsAccesorios[index];
@@ -371,7 +370,7 @@ function generarPDF2(imgData) {
 
     startYAccesorios += cellHeight; // Mover hacia abajo para los datos
 
-    // 📌 Dibujar filas de la tabla Accesorios
+    //  Dibujar filas de la tabla Accesorios
     let numRowsAccesorios = 5;
     for (let i = 0; i < numRowsAccesorios; i++) {
         xPos = startX;
@@ -384,10 +383,10 @@ function generarPDF2(imgData) {
         startYAccesorios += cellHeight;
     }
 
-    // 📌 Dibujar un solo cuadro grande para "Tipo de ocupación"
+    // Dibujar un solo cuadro grande para "Tipo de ocupación"
     drawCell(xPos, startYAccesorios - (numRowsAccesorios * cellHeight), colWidthsAccesorios[colWidthsAccesorios.length - 1], numRowsAccesorios * cellHeight, "");
 
-    // 📌 Texto informativo sobre el cambio de resguardante
+    // Texto informativo sobre el cambio de resguardante
     doc.setFont('helvetica', 'normal');
 
     let textoAviso = "AL MOMENTO DE CAMBIO DE RESGUARDANTE DEL VEHÍCULO, DEBERÁ INFORMAR A LA " +
@@ -401,14 +400,14 @@ function generarPDF2(imgData) {
     doc.text(textoFormateado, 40, 1073);
 
 
-    // 📌 Posición inicial para las imágenes
+    // Posición inicial para las imágenes
     let imgStartX = 40;  // Margen izquierdo
     let imgStartY = 1100; // Debajo del texto de aviso
     let imgWidth = 120;   // Ancho de cada imagen
     let imgHeight = 90;   // Alto de cada imagen
     let spacingX = 20;    // Espaciado entre imágenes
 
-    // 📌 Lista de imágenes (pueden ser URLs o base64)
+    // Lista de imágenes (pueden ser URLs o base64)
     const images = [
         "../carro/Delantero.jpg",
         "../carro/Posterior.jpg",
@@ -416,7 +415,7 @@ function generarPDF2(imgData) {
         "../carro/LadoIzquerdo.jpg"
     ];
 
-    // 📌 Cargar y agregar las imágenes al PDF
+    // Cargar y agregar las imágenes al PDF
     images.forEach((imgSrc, index) => {
         let x = imgStartX + (index * (imgWidth + spacingX));
         let y = imgStartY;
@@ -429,7 +428,7 @@ function generarPDF2(imgData) {
         };
     });
 
-    // 📌 Posición de las firmas (después de las imágenes)
+    // Posición de las firmas (después de las imágenes)
     y = imgStartY + imgHeight + 100; // Ajustar para que las firmas no se sobrepongan
 
     doc.setFont("helvetica", "bold");
