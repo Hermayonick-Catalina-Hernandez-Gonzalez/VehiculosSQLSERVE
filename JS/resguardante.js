@@ -1,33 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Obtener y asignar la fecha actual al input de tipo 'date'
-    var fechaInput = document.getElementById('fecha');
-    var today = new Date();
-    var formattedDate = today.toISOString().split('T')[0];
-    fechaInput.value = formattedDate;
-
-    // Recuperar datos guardados en localStorage
-    let inputs = document.querySelectorAll("input");
-    inputs.forEach(input => {
-        let savedValue = localStorage.getItem(input.id);
-        if (savedValue) {
-            input.value = savedValue;
+    var observer = new MutationObserver(() => {
+        var fechaInput = document.getElementById('fecha');
+        if (fechaInput) {
+            observer.disconnect(); 
+            asignarFecha(); 
         }
-
-        // Guardar cada cambio en localStorage
-        input.addEventListener("input", function () {
-            localStorage.setItem(input.id, input.value);
-        });
     });
+
+    observer.observe(document.body, { childList: true, subtree: true });
 });
+
+function asignarFecha() {
+    var fechaInput = document.getElementById('fecha');
+    if (fechaInput) {
+        fechaInput.removeAttribute("disabled"); 
+        var today = new Date();
+        fechaInput.value = today.toISOString().split('T')[0];
+        fechaInput.setAttribute("disabled", "disabled");
+    }
+}
+
 
 // Redirigir a la siguiente página
 function siguiente() {
     window.location.href = "../../vistas/formulario/unidadVehicular.php";
 }
 
-function salir() {
-    window.location.href = "../../php/logout.php";  
-}
 // Función para normalizar el nombre (quitar acentos y convertir a minúsculas)
 function normalizarTexto(texto) {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();

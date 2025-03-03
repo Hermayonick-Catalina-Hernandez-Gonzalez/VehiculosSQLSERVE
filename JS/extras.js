@@ -2,34 +2,46 @@ document.getElementById('Pdf').addEventListener('submit', function(event) {
     event.preventDefault(); // Previene que la página se recargue
 });
 
-function openTab(evt, tabName) {
-    const tabcontent = document.getElementsByClassName("tabcontent");
-    const tablinks = document.getElementsByClassName("tablink");
-
-    // Ocultar todas las pestañas
-    for (let i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    // Eliminar la clase 'active' de todos los botones de pestañas
-    for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Mostrar la pestaña actual y agregar una clase "active" al botón que abrió la pestaña
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-
 document.addEventListener("DOMContentLoaded", function () {
-    // Se asegura de que la pestaña 'Reglas' esté activa y se muestre automáticamente
-    const reglasTab = document.getElementById("reglas");
-    openTab({ currentTarget: reglasTab }, "Reglas");
+    // Ocultar todas las pestañas al inicio
+    document.querySelectorAll(".tabcontent").forEach(tab => {
+        tab.style.display = "none";
+    });
 
-    // Mostrar el iframe vacío al inicio
+    // Seleccionar y mostrar la pestaña "Reglas" por defecto
+    const defaultTab = document.getElementById("Reglas");
+    const defaultButton = document.getElementById("reglas");
+
+    if (defaultTab && defaultButton) {
+        defaultTab.style.display = "block";
+        defaultButton.classList.add("active");
+    } else {
+        console.error("No se encontró la pestaña 'Reglas' o su botón.");
+    }
+
+    
     const iframe1 = document.getElementById("preview1");
-    iframe1.src = "";  // Dejarlo vacío o configurar una fuente si lo necesitas
+    if (iframe1) {
+        iframe1.style.display = "block"; 
+    } else {
+        console.error("No se encontró el iframe 'preview1'.");
+    }
 });
+
+// Función para cambiar de pestañas manualmente
+function openTab(evt, tabName) {
+    document.querySelectorAll(".tabcontent").forEach(tab => tab.style.display = "none");
+    document.querySelectorAll(".tablink").forEach(btn => btn.classList.remove("active"));
+
+    const selectedTab = document.getElementById(tabName);
+    if (selectedTab) {
+        selectedTab.style.display = "block";
+    }
+
+    if (evt && evt.currentTarget) {
+        evt.currentTarget.classList.add("active");
+    }
+}
 
 
 // Funciones para la firma

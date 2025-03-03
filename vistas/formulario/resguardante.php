@@ -27,7 +27,7 @@
                 <li><a href="../formulario/fotografias.php" class="menu-link">Fotografías de la unidad</a></li>
             </ul>
         </nav>
-        <button class="btn-salir" onclick="salir()">
+        <button class="btn-salir" onclick="cerrar()">
             <img src="../../img/Salir.png" alt="Salir">Salir
         </button>
         <img src="../../img/Vehiculo.png" alt="Vehículo" class="vehiculo">

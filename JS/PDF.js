@@ -303,7 +303,7 @@ function generarPDF2(imgData) {
     const colWidthsInterior = [
         70, 35, 35, 35,
         70, 35, 35, 35,
-        185 
+        185
     ];
 
     let startYInterior = startY + 1; //  Agregar espacio entre tablas
@@ -389,45 +389,12 @@ function generarPDF2(imgData) {
 
     doc.text(textoFormateado, 40, 1073);
 
-
-    // Posición inicial para las imágenes
-    let imgStartX = 40;  // Margen izquierdo
-    let imgStartY = 1100; // Debajo del texto de aviso
-    let imgWidth = 120;   // Ancho de cada imagen
-    let imgHeight = 90;   // Alto de cada imagen
-    let spacingX = 20;    // Espaciado entre imágenes
-
-    // Lista de imágenes (pueden ser URLs o base64)
-    const images = [
-        "../carro/Delantero.jpg",
-        "../carro/Posterior.jpg",
-        "../carro/LadoDerecho.jpg",
-        "../carro/LadoIzquerdo.jpg"
-    ];
-
-    // Cargar y agregar las imágenes al PDF
-    images.forEach((imgSrc, index) => {
-        let x = imgStartX + (index * (imgWidth + spacingX));
-        let y = imgStartY;
-
-        let img = new Image();
-        img.src = imgSrc;
-
-        img.onload = function () {
-            doc.addImage(img, 'JPEG', x, y, imgWidth, imgHeight);
-        };
-    });
-
-    // Posición de las firmas (después de las imágenes)
-    y = imgStartY + imgHeight + 100; // Ajustar para que las firmas no se sobrepongan
-
-    doc.setFont("helvetica", "bold");
-
+    y = 1300; // Ajusta la posición vertical según necesites
     const firmas = [
         "Resguardante Oficial",
         "Resguardante Interno",
         "Verificador",
-        "Autorizacion Depto.REC.MAT"
+        "Autorización Depto. REC. MAT"
     ];
 
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -437,8 +404,13 @@ function generarPDF2(imgData) {
     firmas.forEach((texto, index) => {
         let x = startXFirma + index * spacing;
 
+        // Ajustar alineación
         doc.text(texto, x + spacing / 2, y, { align: "center" });
-        doc.line(x, y + 40, x + spacing - 15, y + 40);
+
+        // Dibujar línea para la firma
+        let lineStartX = x + 10; // Ajustar inicio de línea
+        let lineEndX = x + spacing - 10; // Ajustar fin de línea
+        doc.line(lineStartX, y + 40, lineEndX, y + 40); // Línea de firma
     });
 
     return doc.output('bloburl');

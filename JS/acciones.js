@@ -13,6 +13,9 @@ function salir() {
     window.location.href = "../php/logout.php";  
 }
 
+function cerrar() {
+    window.location.href = "../../php/logout.php";  
+}
 function ver(numeroEconomico) {
     localStorage.setItem('numeroEconomico', numeroEconomico);
     window.location.href = "../vistas/historial.php";
