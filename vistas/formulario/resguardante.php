@@ -157,7 +157,6 @@
         <button class="btn" type="submit" onclick="siguiente()">Siguiente</button>
     </div>
     <script src="../../JS/resguardante.js"></script>
-    <script src="../../JS/acciones.js"></script>
     <script src="../../JS/municipios.js"></script>
     <script src="../../JS/historial.js"></script>
 </body>
