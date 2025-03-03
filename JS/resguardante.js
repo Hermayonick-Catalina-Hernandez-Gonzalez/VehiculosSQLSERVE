@@ -34,7 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
 function siguiente() {
     window.location.href = "../../vistas/formulario/unidadVehicular.php";
 }
-
+function cerrar() {
+    window.location.href = "../../php/logout.php";  
+}
 // Función para normalizar el nombre (quitar acentos y convertir a minúsculas)
 function normalizarTexto(texto) {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -84,15 +86,7 @@ function buscarEmpleadoPorNombre(nombreNormalizado, tipo) {
                     document.getElementById("vicefiscalia_en").value = data.vicefiscalia_en || "";
                     document.getElementById("direccion_general").value = data.direccion_general || "";
                     document.getElementById("departamento_area").value = data.departamento_area || "";
-                
-                    Swal.fire({
-                        title: "¡Éxito!",
-                        text: "Empleado encontrado.",
-                        icon: "success",
-                        showConfirmButton: false,
-                        timer: 1500,
-                        backdrop: false
-                    });
+            
 
                     localStorage.setItem("cargo", data.cargo || "");
                     localStorage.setItem("fiscalia_general", data.fiscalia_general || "");
@@ -106,21 +100,22 @@ function buscarEmpleadoPorNombre(nombreNormalizado, tipo) {
                     document.getElementById("numero_empleado").value = data.numero_empleado || "";
                     document.getElementById("celular").value = data.celular || "";
 
-                    Swal.fire({
-                        title: "¡Éxito!",
-                        text: "Empleado encontrado.",
-                        icon: "success",
-                        showConfirmButton: false,
-                        timer: 1500,
-                        backdrop: false
-                    });
-
+                
                     localStorage.setItem("cargo_interno", data.cargo || "");
                     localStorage.setItem("numero_empleado", data.numero_empleado || "");
                     localStorage.setItem("celular", data.celular || "");
                 }
 
             }
+            Swal.fire({
+                title: "¡Éxito!",
+                text: "Empleado encontrado.",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
+                backdrop: false
+            });
+
         })
         .catch(error => {
             console.error("Error en fetch:", error);
