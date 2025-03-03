@@ -1,14 +1,3 @@
-function final() {
-    Swal.fire({
-        icon: 'success',
-        title: '¡Se ha Guardado Exitosamente!',
-        timer: 1500,
-        showConfirmButton: false,
-        backdrop: false
-    }).then(() => {
-        window.location.href = '../../vistas/formulario/pdfs.php';
-    });
-}
 function generarPDF() {
     const { jsPDF } = window.jspdf;
 
@@ -57,7 +46,7 @@ function generarPDF1(imgData) {
         startY: 80,
         head: [["MARCA", "SUBMARCA", "SERIE", "MODELO", "PLACA", "N° ECO"]],
         body: [
-            ["Toyota", "Corolla", "3XXAAB", "2022", "ABC-123", "0218"],
+            ["", "", "", "", "", ""],
             [{ content: "AREA", styles: { textColor: [255, 255, 255], fontStyle: "bold" } },
             { content: " ", colSpan: 5, styles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], halign: "center" } }]
         ],
@@ -204,10 +193,10 @@ function generarPDF2(imgData) {
 
     //tabla de unidad
     let unidadHeaders = ["PLACA", "N° ECONÓMICO", "SERIE", "COLOR"];
-    let unidadData = [["ABC-123", "1001", "XYZ789456", "Azul"]];
+    let unidadData = [[" ", " ", " ", " "]];
 
     let unidadH = ["CLASE", "MARCA", "SUBMARCA", "MODELO"];
-    let unidadD = [["Sedán", "Toyota", "Corolla", "2022"]];
+    let unidadD = [[" ", " ", " ", " "]];
 
     // Dibujar primera tabla (Unidad)
     doc.setFont('helvetica', 'bold');
@@ -251,6 +240,7 @@ function generarPDF2(imgData) {
         { texto: "ARRENDADO:", x: 180 },
         { texto: "DECOMISADO:", x: 320 }
     ];
+
     // Dibujar los recuadros alrededor de los textos y los cuadros de selección
     opciones.forEach(opcion => {
         let textWidth = doc.getTextWidth(opcion.texto) + 13;
@@ -357,7 +347,7 @@ function generarPDF2(imgData) {
         215
     ];
 
-    let startYAccesorios = startYInterior + 1; // 📍 Espacio entre tablas
+    let startYAccesorios = startYInterior + 1; // Espacio entre tablas
 
     doc.setFont('helvetica', 'bold');
     xPos = startX;
@@ -394,7 +384,7 @@ function generarPDF2(imgData) {
         "al correo: actualizar.reguardovehicular@fgjtam.gob.mx " +
         "o a los tels. 834 318 51 00 ext. 70258 y 70234.";
 
-    // 📌 Ajustar texto automáticamente para que no se corte
+    // Ajustar texto automáticamente para que no se corte
     let textoFormateado = doc.splitTextToSize(textoAviso, 550);
 
     doc.text(textoFormateado, 40, 1073);

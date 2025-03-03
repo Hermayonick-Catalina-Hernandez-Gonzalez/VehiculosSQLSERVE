@@ -1,3 +1,14 @@
+document.addEventListener("DOMContentLoaded", function () {
+    let links = document.querySelectorAll(".menu-link");
+    let currentPath = window.location.pathname.split('/').pop(); // Obtiene el nombre del archivo actual
+
+    links.forEach(link => {
+        if (link.getAttribute("href").includes(currentPath)) {
+            link.classList.add("active");
+        }
+    });
+});
+
 function salir() {
     window.location.href = "../php/logout.php";  
 }
@@ -120,7 +131,7 @@ function buscarHistorial() {
         const municipio = normalizarTexto(card.querySelector('p:nth-child(2)').textContent.toLowerCase());
         const resguardante = normalizarTexto(card.querySelector('p:nth-child(3)').textContent.toLowerCase());
         const resguardanteInterno = normalizarTexto(card.querySelector('p:nth-child(4)').textContent.toLowerCase());
-        const numEmpleado = normalizarTexto(card.querySelector('p:nth-child(5)').textContent.toLowerCase());
+        const observaciones= normalizarTexto(card.querySelector('p:nth-child(5)').textContent.toLowerCase());
 
         // Verifica si alguno de los campos normalizados coincide con el texto de búsqueda
         if (
@@ -128,7 +139,7 @@ function buscarHistorial() {
             municipio.includes(searchText) ||
             resguardante.includes(searchText) ||
             resguardanteInterno.includes(searchText) ||
-            numEmpleado.includes(searchText)
+            observaciones.includes(searchText)
         ) {
             card.style.display = '';  // Mostrar el div
         } else {

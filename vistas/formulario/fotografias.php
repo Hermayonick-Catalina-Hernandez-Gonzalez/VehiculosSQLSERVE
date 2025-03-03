@@ -1,10 +1,3 @@
-<?php
-session_start(); 
-if ($_SESSION['rol'] != 'verificador') {
-    header("Location: ../../index.php");  
-    exit();  
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,7 +87,6 @@ if ($_SESSION['rol'] != 'verificador') {
         </div>
     </div>
 
-    <script src="../../JS/activado.js"></script>
     <script src="../../JS/fotografias.js"></script>
     <script src="../../JS/acciones.js"></script>
     <script src="../../JS/PDF.js"></script>

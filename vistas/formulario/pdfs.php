@@ -1,10 +1,3 @@
-<?php
-session_start(); 
-if ($_SESSION['rol'] != 'verificador') {
-    header("Location: ../../index.php");  
-    exit();  
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -45,7 +38,7 @@ if ($_SESSION['rol'] != 'verificador') {
     <div class="right-section">
         <h1>Verificacion de Datos</h1>
         <button onclick="generarPDF()" class="btn">Ver PDF</button>
-        <form id="Verificacion">
+        <form id="Pdf">
             <div class="tabs">
                 <button class="tablink" id="reglas"
                     onclick="openTab(event, 'Reglas')">Reglas</button>
@@ -84,12 +77,11 @@ if ($_SESSION['rol'] != 'verificador') {
 
     <script src="../../JS/PDF.js"></script>
     <script src="../../JS/PDFsFirma.js"></script>
-    <script src="../../JS/mostarpdfs.js"></script>
+    <script src="../../JS/extras.js"></script>
     <script src="../../JS/resguardante.js"></script>
     <script src="../../JS/unidadVehicular.js"></script>
     <script src="../../JS/fotografias.js"></script>
     <script src="../../JS/verificacion.js"></script>
     <script src="../../JS/acciones.js"></script>
 </body>
-
 </html>

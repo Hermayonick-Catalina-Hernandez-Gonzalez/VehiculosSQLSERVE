@@ -30,7 +30,6 @@ function salir() {
 }
 // Función para normalizar el nombre (quitar acentos y convertir a minúsculas)
 function normalizarTexto(texto) {
-    // Convertir texto a minúsculas y quitar acentos
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
@@ -43,16 +42,24 @@ function buscarEmpleados() {
         return;
     }
 
-    // Normalizar el nombre (quitar acentos y convertir a minúsculas)
-    let nombreNormalizado = normalizarTexto(resguardante || resguardanteInterno);
+    if (resguardante) {
+        let nombreNormalizado = normalizarTexto(resguardante);
+        buscarEmpleadoPorNombre(nombreNormalizado, "resguardante");
+    }
 
-    // Llamar al backend con el nombre normalizado
+    if (resguardanteInterno) {
+        let nombreNormalizadoInterno = normalizarTexto(resguardanteInterno);
+        buscarEmpleadoPorNombre(nombreNormalizadoInterno, "resguardante_interno");
+    }
+}
+
+function buscarEmpleadoPorNombre(nombreNormalizado, tipo) {
     let url = `http://localhost/xampp/VehiculosSQLSERVE/php/buscarEmpleado.php?nombre=${encodeURIComponent(nombreNormalizado)}`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log("Respuesta del servidor:", data);
+            console.log(`Respuesta del servidor para ${tipo}:`, data);
 
             if (data.error) {
                 Swal.fire({
@@ -62,44 +69,50 @@ function buscarEmpleados() {
                     backdrop: false
                 });
             } else {
-                // Si el resguardante es encontrado, actualiza los campos
-                if (resguardante) {
-                    // Actualizar los campos del resguardante
-                    document.getElementById("resguardante").value = data.nombre || resguardante; 
+                if (tipo === "resguardante") {
+                    document.getElementById("resguardante").value = data.nombre || nombreNormalizado;
                     document.getElementById("cargo").value = data.cargo || "";
                     document.getElementById("fiscalia_general").value = data.fiscalia_general || "";
                     document.getElementById("fiscalia_especializada_en").value = data.fiscalia_especializada_en || "";
                     document.getElementById("vicefiscalia_en").value = data.vicefiscalia_en || "";
                     document.getElementById("direccion_general").value = data.direccion_general || "";
                     document.getElementById("departamento_area").value = data.departamento_area || "";
+                
+                    Swal.fire({
+                        title: "¡Éxito!",
+                        text: "Empleado encontrado.",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        backdrop: false
+                    });
 
-                    // Guardar en localStorage
                     localStorage.setItem("cargo", data.cargo || "");
                     localStorage.setItem("fiscalia_general", data.fiscalia_general || "");
                     localStorage.setItem("fiscalia_especializada_en", data.fiscalia_especializada_en || "");
                     localStorage.setItem("vicefiscalia_en", data.vicefiscalia_en || "");
                     localStorage.setItem("direccion_general", data.direccion_general || "");
                     localStorage.setItem("departamento_area", data.departamento_area || "");
-                }
-
-                if (resguardanteInterno) {
-                    // Si el campo resguardanteInterno tiene valor, actualizar los datos internos
+                } else if (tipo === "resguardante_interno") {
+                    document.getElementById("resguardante_interno").value = data.nombre || nombreNormalizado;
                     document.getElementById("cargo_interno").value = data.cargo || "";
                     document.getElementById("numero_empleado").value = data.numero_empleado || "";
                     document.getElementById("celular").value = data.celular || "";
 
-                    // Guardar en localStorage
+                    Swal.fire({
+                        title: "¡Éxito!",
+                        text: "Empleado encontrado.",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        backdrop: false
+                    });
+
                     localStorage.setItem("cargo_interno", data.cargo || "");
                     localStorage.setItem("numero_empleado", data.numero_empleado || "");
                     localStorage.setItem("celular", data.celular || "");
                 }
 
-                Swal.fire({
-                    title: "Good job!",
-                    text: "Empleado encontrado.",
-                    icon: "success",
-                    backdrop: false
-                });
             }
         })
         .catch(error => {

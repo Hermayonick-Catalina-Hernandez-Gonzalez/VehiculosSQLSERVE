@@ -1,11 +1,3 @@
-<?php
-session_start(); 
-if ($_SESSION['rol'] != 'verificador') {
-    header("Location: ../../index.php");  
-    exit();  
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -44,7 +36,7 @@ if ($_SESSION['rol'] != 'verificador') {
     <!-- Sección del formulario -->
     <div class="right-section">
         <h1>Resguardo Vehicular</h1>
-        <form id="formularioResguardante"  action="../../php/insertar_historial.php" action="POST">
+        <form id="formularioResguardante"  action="../../php/historial.php" action="POST">
             <div class="form-row">
                 <div class="form-group">
                     <label for="fecha">Fecha:</label>
@@ -165,7 +157,7 @@ if ($_SESSION['rol'] != 'verificador') {
         <button class="btn" type="submit" onclick="siguiente()">Siguiente</button>
     </div>
     <script src="../../JS/resguardante.js"></script>
-    <script src="../../JS/activado.js"></script>
+    <script src="../../JS/acciones.js"></script>
     <script src="../../JS/municipios.js"></script>
     <script src="../../JS/historial.js"></script>
 </body>

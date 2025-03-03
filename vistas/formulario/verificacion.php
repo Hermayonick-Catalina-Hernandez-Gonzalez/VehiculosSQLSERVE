@@ -1,10 +1,3 @@
-<?php
-session_start(); 
-if ($_SESSION['rol'] != 'verificador') {
-    header("Location: ../../index.php");  
-    exit();  
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -61,8 +54,6 @@ if ($_SESSION['rol'] != 'verificador') {
 
         <button class="btn" type="button" onclick="nextTab()">Siguiente</button>
     </div>
-
-    <script src="../../JS/activado.js"></script>
     <script src="../../JS/acciones.js"></script>
     <script src="../../JS/verificacion.js"></script>
 </body>

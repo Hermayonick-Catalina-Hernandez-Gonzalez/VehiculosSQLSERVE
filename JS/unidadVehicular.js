@@ -44,6 +44,8 @@ function buscarVehiculo() {
                     title: "Good job!",
                     text: "Vehículo encontrado.",
                     icon: "success",
+                    showConfirmButton: false,
+                    timer: 1500,
                     backdrop: false
                 });
             }

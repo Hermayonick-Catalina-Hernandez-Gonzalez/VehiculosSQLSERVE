@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
 function openTab(evt, tabName) {
     document.querySelectorAll(".tabcontent").forEach(tab => tab.style.display = "none");
     document.querySelectorAll(".tablink").forEach(btn => btn.classList.remove("active"));
