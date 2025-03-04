@@ -82,9 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    document.getElementById("btnGuardar").addEventListener("click", function () {
-        enviarDatosAlServidor();
-    });
+
 });
 
 function cargarDatosFormulario() {
@@ -110,36 +108,6 @@ function cargarDatosFormulario() {
     });
 }
 
-document.getElementById("btnGuardar").addEventListener("click", function () {
-    enviarDatosAlServidor();
-});
-
-
-function enviarDatosAlServidor() {
-    let datosFormulario = new FormData();
-
-    document.querySelectorAll("input, select").forEach(element => {
-        if (element.type === "radio") {
-            if (element.checked) {
-                datosFormulario.append(element.name, element.value);
-            }
-        } else {
-            datosFormulario.append(element.id, element.value);
-        }
-    });
-
-    fetch("http://localhost/xampp/VehiculosSQLSERVE/php/historial.php", {
-        method: "POST",
-        body: datosFormulario
-    })
-    .then(response => response.text())
-    .then(data => {
-        Swal.fire("Éxito", "Datos guardados correctamente.", "success");
-    })
-    .catch(error => {
-        Swal.fire("Error", "No se pudieron guardar los datos.", "error");
-    });
-}
 
 // Limpiar localStorage solo cuando el usuario presiona "Aceptar"
 function finalizarFormulario() {

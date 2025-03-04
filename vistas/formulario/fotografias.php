@@ -61,7 +61,7 @@
         <div class="foto-apartado-container">
             <div class="foto-apartado">
                 <p>Kilometraje:</p>
-                <img src="../../img/agregar.png" alt="Kilometraje" class="foto-preview" id="kilometraje" onclick="abrirCamara('Kilometraje')">
+                <img src="../../img/agregar.png" alt="Kilometraje" class="foto-preview" id="kilometraje" onclick="abrirCamara('kilometraje')">
                 <textarea id="observaciones" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
             </div>
             <div class="foto-apartado">
@@ -72,7 +72,8 @@
         </div>
         <button onclick="agregarFotoExtra()" class="btn">Agregar Fotografía Extra</button>
         <div id="extra-fotos-container"></div>
-        <button onclick="final()" class="btn">Guardar</button>
+        <button type="button" onclick="subirFoto()" class="btn">Guardar</button>
+
     </div>
 
     <!-- Modal de Cámara -->
@@ -90,6 +91,7 @@
     <script src="../../JS/fotografias.js"></script>
     <script src="../../JS/acciones.js"></script>
     <script src="../../JS/PDF.js"></script>
+
 </body>
 
 </html>

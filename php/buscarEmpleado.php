@@ -38,5 +38,5 @@ if ($empleado) {
     echo json_encode(["error" => "Empleado no encontrado"]);
 }
 
-$conn = null; // Cerrar conexión
+$conn = null; 
 ?>

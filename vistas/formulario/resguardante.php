@@ -154,7 +154,7 @@
                 </div>
             </div>
         </form>
-        <button class="btn" type="submit" onclick="siguiente()">Siguiente</button>
+        <button class="btn" type="submit" id="btnGuardar" onclick="siguiente()">Siguiente</button>
     </div>
     <script src="../../JS/resguardante.js"></script>
     <script src="../../JS/municipios.js"></script>

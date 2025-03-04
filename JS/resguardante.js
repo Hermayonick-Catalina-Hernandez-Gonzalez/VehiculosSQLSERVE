@@ -86,8 +86,6 @@ function buscarEmpleadoPorNombre(nombreNormalizado, tipo) {
                     document.getElementById("direccion_general").value = data.direccion_general || "";
                     document.getElementById("departamento_area").value = data.departamento_area || "";
             
-
-                    // Guardar en localStorage
                     localStorage.setItem("cargo", data.cargo || "");
                     localStorage.setItem("fiscalia_general", data.fiscalia_general || "");
                     localStorage.setItem("fiscalia_especializada_en", data.fiscalia_especializada_en || "");
@@ -100,7 +98,6 @@ function buscarEmpleadoPorNombre(nombreNormalizado, tipo) {
                     document.getElementById("numero_empleado").value = data.numero_empleado || "";
                     document.getElementById("celular").value = data.celular || "";
 
-                
                     localStorage.setItem("cargo_interno", data.cargo || "");
                     localStorage.setItem("numero_empleado", data.numero_empleado || "");
                     localStorage.setItem("celular", data.celular || "");
@@ -129,10 +126,7 @@ function buscarEmpleadoPorNombre(nombreNormalizado, tipo) {
         
 }
 document.addEventListener("DOMContentLoaded", function () {
-    // Cargar datos almacenados al cargar la página
     cargarDatosFormulario();
-
-    // Agregar evento de cambio a todos los campos del formulario
     document.querySelectorAll("#formularioResguardante input").forEach(input => {
         input.addEventListener("input", function () {
             localStorage.setItem(input.id, input.value);
@@ -140,7 +134,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Función para cargar los datos almacenados
 function cargarDatosFormulario() {
     document.querySelectorAll("#formularioResguardante input").forEach(input => {
         let valorGuardado = localStorage.getItem(input.id);
@@ -149,6 +142,7 @@ function cargarDatosFormulario() {
         }
     });
 }
+
 
 // Limpiar localStorage solo cuando el usuario presiona "Aceptar"
 function finalizarFormulario() {

@@ -1,33 +1,33 @@
 <?php
-require '../php/conexion.php';
+// Incluir la conexión a la base de datos
+require('../php/conexion.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $vehiculo_id = $_POST['vehiculo_id'];
-    $resguardante_id = $_POST['resguardante_id'];
-    $municipio = $_POST['municipio'];
-    $kilometraje = $_POST['kilometraje'];
-    $tipo_condicion = $_POST['tipo_condicion']; // Recibe el valor del botón seleccionado
+// Obtener los datos del formulario
+$fecha = $_POST['fecha'];
+$municipio = $_POST['municipio'];
+$FGJRM = $_POST['FGJRM'];
+$resguardante = $_POST['resguardante'];
+$licencia = $_POST['licencia'];
+$vigencia = $_POST['vigencia'];
+$resguardanteInterno = $_POST['resguardanteInterno'];
+$licenciaInterna = $_POST['licenciaInterna'];
+$vigenciaInterna = $_POST['vigenciaInterna'];
+$vehiculoId = $_POST['vehiculoId'];
+$tipoCondicion = $_POST['tipoCondicion'];
+$kilometraje = $_POST['kilometraje'];
 
-    try {
-        $sql = "INSERT INTO historial (vehiculo_id, resguardante_id, municipio, kilometraje, tipo_condicion) 
-                VALUES (:vehiculo_id, :resguardante_id, :municipio, :kilometraje, :tipo_condicion)";
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':vehiculo_id', $vehiculo_id);
-        $stmt->bindParam(':resguardante_id', $resguardante_id);
-        $stmt->bindParam(':municipio', $municipio);
-        $stmt->bindParam(':kilometraje', $kilometraje);
-        $stmt->bindParam(':tipo_condicion', $tipo_condicion);
-        
-        if ($stmt->execute()) {
-            echo "Registro guardado exitosamente.";
-        } else {
-            echo "Error al guardar.";
-        }
-    } catch (PDOException $e) {
-        echo "Error en la consulta: " . $e->getMessage();
-    }
+// Consulta para insertar en la tabla historial
+$query = "INSERT INTO historial (vehiculo_id, resguardante_id, resguardante_interno_id, fecha_registro, municipio, FGJRM, licencia_resguardante, vigencia_licencia_resguardante, licencia_resguardante_interno, vigencia_licencia_resguardante_interno, tipo_condicion, kilometraje)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+// Preparar la consulta
+$stmt = $conn->prepare($sql);
+// Ejecutar la consulta
+if ($stmt->execute()) {
+    echo 'Historial guardado correctamente';
 } else {
-    echo "Acceso no permitido.";
+    echo 'Error al guardar historial';
 }
+
+
 ?>

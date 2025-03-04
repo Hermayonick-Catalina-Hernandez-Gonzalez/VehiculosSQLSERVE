@@ -40,60 +40,11 @@ CREATE TABLE vehiculos (
     modelo_vehiculo INT NOT NULL
 );
 
-CREATE TABLE historial (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    vehiculo_id INT NOT NULL,
-    resguardante_id VARCHAR(20) NOT NULL,
-    resguardante_interno_id VARCHAR(20) DEFAULT NULL,
-    fecha_registro DATETIME DEFAULT GETDATE(),
-    municipio VARCHAR(100) NOT NULL,
-    FGJRM VARCHAR(50) DEFAULT NULL,
-    licencia_resguardante VARCHAR(50) DEFAULT NULL,
-    vigencia_licencia_resguardante VARCHAR(50) DEFAULT NULL,
-    licencia_resguardante_interno VARCHAR(50) DEFAULT NULL,
-    vigencia_licencia_resguardante_interno VARCHAR(50) DEFAULT NULL,
-    tipo_condicion VARCHAR(20) CHECK (tipo_condicion IN ('propio', 'arrendado', 'decomisado')),
-    kilometraje INT DEFAULT NULL,
-    
-    -- Relaciones con las tablas existentes
-    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico),
-    FOREIGN KEY (resguardante_id) REFERENCES empleados(numero_empleado),
-    FOREIGN KEY (resguardante_interno_id) REFERENCES empleados(numero_empleado)
-);
-
-
 CREATE TABLE fotos ( 
     id INT IDENTITY(1,1) PRIMARY KEY,  
-    vehiculo_id INT, 
     nombre_foto VARCHAR(255), 
     foto VARBINARY(MAX), 
     observacion TEXT,  
-    historial_id INT,  
-    FOREIGN KEY (historial_id) REFERENCES historial(id),
-    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico) 
-);
-
-
-CREATE TABLE verificacion (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    vehiculo_id INT,  
-    categoria VARCHAR(50),  
-    elemento VARCHAR(255), 
-    estado VARCHAR(10) NOT NULL CHECK (estado IN ('Bien', 'Mal', 'Regular')),  
-    accesorios VARCHAR(2) NOT NULL CHECK (accesorios IN ('Si', 'No')),  
-    historial_id INT,  
-    FOREIGN KEY (historial_id) REFERENCES historial(id),
-    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico)  
-);
-
-CREATE TABLE observaciones_verificacion (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    vehiculo_id INT, 
-    categoria VARCHAR(50), 
-    observacion TEXT,  
-    historial_id INT,  
-    FOREIGN KEY (historial_id) REFERENCES historial(id),
-    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(numero_economico)  
 );
 
 
