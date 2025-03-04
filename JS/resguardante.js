@@ -68,8 +68,7 @@ function buscarEmpleadoPorNombre(nombreNormalizado, tipo) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log(`Respuesta del servidor para ${tipo}:`, data);
-
+            
             if (data.error) {
                 Swal.fire({
                     title: "Oops...",
@@ -88,6 +87,7 @@ function buscarEmpleadoPorNombre(nombreNormalizado, tipo) {
                     document.getElementById("departamento_area").value = data.departamento_area || "";
             
 
+                    // Guardar en localStorage
                     localStorage.setItem("cargo", data.cargo || "");
                     localStorage.setItem("fiscalia_general", data.fiscalia_general || "");
                     localStorage.setItem("fiscalia_especializada_en", data.fiscalia_especializada_en || "");
@@ -126,6 +126,28 @@ function buscarEmpleadoPorNombre(nombreNormalizado, tipo) {
                 backdrop: false
             });
         });
+        
+}
+document.addEventListener("DOMContentLoaded", function () {
+    // Cargar datos almacenados al cargar la página
+    cargarDatosFormulario();
+
+    // Agregar evento de cambio a todos los campos del formulario
+    document.querySelectorAll("#formularioResguardante input").forEach(input => {
+        input.addEventListener("input", function () {
+            localStorage.setItem(input.id, input.value);
+        });
+    });
+});
+
+// Función para cargar los datos almacenados
+function cargarDatosFormulario() {
+    document.querySelectorAll("#formularioResguardante input").forEach(input => {
+        let valorGuardado = localStorage.getItem(input.id);
+        if (valorGuardado) {
+            input.value = valorGuardado;
+        }
+    });
 }
 
 // Limpiar localStorage solo cuando el usuario presiona "Aceptar"

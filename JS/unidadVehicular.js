@@ -61,50 +61,85 @@ function buscarVehiculo() {
         });
 }
 
-// Recuperar datos guardados al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
-    // Guardar y recuperar inputs de texto
-    let inputs = document.querySelectorAll("input[type='text'], input[type='number'], input[type='date']");
-    inputs.forEach(input => {
-        let savedValue = localStorage.getItem(input.id);
-        if (savedValue) {
-            input.value = savedValue;
-        }
+    cargarDatosFormulario();
 
-        // Guardar cada cambio en localStorage
+    document.querySelectorAll("input[type='text'], input[type='number'], input[type='date']").forEach(input => {
         input.addEventListener("input", function () {
             localStorage.setItem(input.id, input.value);
         });
     });
 
-    // Guardar y recuperar selects
-    let selects = document.querySelectorAll("select");
-    selects.forEach(select => {
-        let savedValue = localStorage.getItem(select.id);
-        if (savedValue) {
-            select.value = savedValue;
-        }
-
-        // Guardar cada cambio en localStorage
+    document.querySelectorAll("select").forEach(select => {
         select.addEventListener("change", function () {
             localStorage.setItem(select.id, select.value);
         });
     });
 
-    // Guardar y recuperar radio buttons
-    let radios = document.querySelectorAll("input[type='radio']");
-    radios.forEach(radio => {
-        let savedValue = localStorage.getItem(radio.name);
-        if (savedValue && radio.value === savedValue) {
-            radio.checked = true;
-        }
-
-        // Guardar cada cambio en localStorage
+    document.querySelectorAll("input[type='radio']").forEach(radio => {
         radio.addEventListener("change", function () {
             localStorage.setItem(radio.name, radio.value);
         });
     });
+
+    document.getElementById("btnGuardar").addEventListener("click", function () {
+        enviarDatosAlServidor();
+    });
 });
+
+function cargarDatosFormulario() {
+    document.querySelectorAll("input[type='text'], input[type='number'], input[type='date']").forEach(input => {
+        let valorGuardado = localStorage.getItem(input.id);
+        if (valorGuardado) {
+            input.value = valorGuardado;
+        }
+    });
+
+    document.querySelectorAll("select").forEach(select => {
+        let valorGuardado = localStorage.getItem(select.id);
+        if (valorGuardado) {
+            select.value = valorGuardado;
+        }
+    });
+
+    document.querySelectorAll("input[type='radio']").forEach(radio => {
+        let valorGuardado = localStorage.getItem(radio.name);
+        if (valorGuardado && radio.value === valorGuardado) {
+            radio.checked = true;
+        }
+    });
+}
+
+document.getElementById("btnGuardar").addEventListener("click", function () {
+    enviarDatosAlServidor();
+});
+
+
+function enviarDatosAlServidor() {
+    let datosFormulario = new FormData();
+
+    document.querySelectorAll("input, select").forEach(element => {
+        if (element.type === "radio") {
+            if (element.checked) {
+                datosFormulario.append(element.name, element.value);
+            }
+        } else {
+            datosFormulario.append(element.id, element.value);
+        }
+    });
+
+    fetch("http://localhost/xampp/VehiculosSQLSERVE/php/historial.php", {
+        method: "POST",
+        body: datosFormulario
+    })
+    .then(response => response.text())
+    .then(data => {
+        Swal.fire("Éxito", "Datos guardados correctamente.", "success");
+    })
+    .catch(error => {
+        Swal.fire("Error", "No se pudieron guardar los datos.", "error");
+    });
+}
 
 // Limpiar localStorage solo cuando el usuario presiona "Aceptar"
 function finalizarFormulario() {

@@ -34,7 +34,7 @@
     <div class="right-section">
         <!-- Formulario-->
         <h1>Datos Vehiculares</h1>
-        <form id="formularioVehiculo" action="../../php/historial.php" action="POST">
+        <form id="formularioVehiculo" action="../../php/historial.php" method="POST">
             <div class="form-row">
                 <!-- Campos de formulario-->
                 <div class="form-group">
@@ -81,31 +81,30 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="propio">Propio:</label>
-                    <input type="radio" id="propio" name="condicion" value="propio">
+                    <input type="radio" id="propio" name="tipo_condicion" value="propio" required>
                 </div>
                 <div class="form-group">
                     <label for="aprendado">Arrendado:</label>
-                    <input type="radio" id="aprendado" name="condicion" value="aprendado">
+                    <input type="radio" id="aprendado" name="tipo_condicion" value="aprendado">
                 </div>
                 <div class="form-group">
                     <label for="decomisado">Decomisado:</label>
-                    <input type="radio" id="decomisado" name="condicion" value="decomisado">
+                    <input type="radio" id="decomisado" name="tipo_condicion" value="decomisado">
                 </div>
 
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="km">Kilómetraje:</label>
-                    <input type="number" id="km" name="km">
+                    <input type="number" id="kilometraje" name="kilometraje">
                 </div>
             </div>
         </form>
-        <button class="btn" type="button" onclick="siguiente()">Siguiente</button>
+        <button  class="btn" type="submit" id="btnGuardar" >Siguiente</button>
     </div>
 
     <script src="../../JS/acciones.js"></script>
     <script src="../../JS/unidadVehicular.js"></script>
-    <script src="../../JS/historial.js"></script>
 </body>
 
 </html>

@@ -36,7 +36,7 @@
     <!-- Sección del formulario -->
     <div class="right-section">
         <h1>Resguardo Vehicular</h1>
-        <form id="formularioResguardante"  action="../../php/historial.php" action="POST">
+        <form id="formularioResguardante" action="../../php/historial.php" method="POST">
             <div class="form-row">
                 <div class="form-group">
                     <label for="fecha">Fecha:</label>
@@ -158,7 +158,6 @@
     </div>
     <script src="../../JS/resguardante.js"></script>
     <script src="../../JS/municipios.js"></script>
-    <script src="../../JS/historial.js"></script>
 </body>
 
 </html>
