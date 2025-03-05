@@ -41,10 +41,7 @@ function asignarFecha() {
     }
 }
 
-// Redirigir a la siguiente página
-function siguiente() {
-    window.location.href = "../../vistas/formulario/unidadVehicular.php";
-}
+
 function cerrar() {
     window.location.href = "../../php/logout.php";
 }
@@ -191,39 +188,12 @@ function guardarDatos() {
         try {
             const jsonData = JSON.parse(data);  // Intentar parsear la respuesta JSON
             if (jsonData.success) {
-                Swal.fire({
-                    title: "¡Éxito!",
-                    text: "Los datos han sido guardados.",
-                    icon: "success",
-                    backdrop: false
-                });
-            } else {
-                Swal.fire({
-                    title: "Oops...",
-                    text: jsonData.error,
-                    icon: "error",
-                    backdrop: false
-                });
+                window.location.href = "../../vistas/formulario/unidadVehicular.php";
             }
         } catch (error) {
             console.error("Error al parsear JSON:", error);
-            Swal.fire({
-                title: "Oops...",
-                text: "Hubo un problema al guardar los datos.",
-                icon: "error",
-                backdrop: false
-            });
         }
     })
-    .catch(error => {
-        console.error("Error en fetch:", error);
-        Swal.fire({
-            title: "Oops...",
-            text: "Error en la solicitud.",
-            icon: "error",
-            backdrop: false
-        });
-    });
     
 
 }
