@@ -72,7 +72,7 @@
         </div>
         <button onclick="agregarFotoExtra()" class="btn">Agregar Fotografía Extra</button>
         <div id="extra-fotos-container"></div>
-        <button type="button" onclick="subirFoto()" class="btn">Guardar</button>
+        <button type="button" onclick="final()" class="btn">Guardar</button>
 
     </div>
 

@@ -27,4 +27,13 @@ $(document).ready(function () {
     $("#municipio").on("input", function () {
         localStorage.setItem("municipio", $(this).val());
     });
+
+    // Antes de enviar el formulario, asegurarnos de que el valor de municipio esté presente
+    $("#formularioResguardante").submit(function (e) {
+        let municipioValue = $("#municipio").val();
+        if (municipioValue.trim() === "") {
+            e.preventDefault(); // Evitar el envío si municipio está vacío
+            alert("El campo Municipio es obligatorio.");
+        }
+    });
 });

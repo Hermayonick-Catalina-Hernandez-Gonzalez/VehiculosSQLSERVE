@@ -15,53 +15,26 @@ CREATE TABLE usuarios (
     fecha_registro DATETIME DEFAULT GETDATE()
 );
 
--- Crear la tabla empleados
-CREATE TABLE empleados (
-    numero_empleado VARCHAR(20) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL, 
-    cargo VARCHAR(100) DEFAULT NULL,
-    celular VARCHAR(15) DEFAULT NULL,
-    fiscalia_general VARCHAR(100) DEFAULT NULL,
-    fiscalia_especializada_en VARCHAR(100) DEFAULT NULL,
-    vicefiscalia_en VARCHAR(100) DEFAULT NULL,
-    direccion_general VARCHAR(100) DEFAULT NULL,
-    departamento_area VARCHAR(100) DEFAULT NULL
+CREATE TABLE resguardante (
+    id INT IDENTITY(1,1) PRIMARY KEY, 
+    fech DATETIME DEFAULT GETDATE(),
+    municipio VARCHAR(255) NOT NULL,
+    FGJRM VARCHAR(255) NOT NULL,
+    numero_empleado INT NOT NULL,
+    resguardante VARCHAR(255) NOT NULL,
+    cargo VARCHAR(255) NOT NULL,
+    licencia VARCHAR(255) NOT NULL,
+    vigencia VARCHAR(255) NOT NULL,
+    fiscalia_general VARCHAR(255) NOT NULL,
+    fiscalia_especializada_en VARCHAR(255) NOT NULL,
+    vicefiscalia_en VARCHAR(255) NOT NULL,
+    direccion_general VARCHAR(255) NOT NULL,
+    departamento_area VARCHAR(255) NOT NULL,
+    numero_empleado_interno INT NOT NULL,
+    resguardante_interno VARCHAR(255) NOT NULL,
+    cargo_interno VARCHAR(255) NOT NULL,
+    licencia_interna VARCHAR(255) NOT NULL,
+    vigencia_interna  VARCHAR(255) NOT NULL,
+    celular VARCHAR(255) NOT NULL
 );
-
--- Crear la tabla vehiculos
-CREATE TABLE vehiculos (
-    numero_economico INT PRIMARY KEY, 
-    placa VARCHAR(20) NOT NULL,
-    serie VARCHAR(50) NOT NULL UNIQUE,
-    color VARCHAR(30) NOT NULL,
-    clase_vehiculo VARCHAR(50) NOT NULL,
-    marca_vehiculo VARCHAR(50) NOT NULL,
-    submarca VARCHAR(50) NOT NULL,
-    modelo_vehiculo INT NOT NULL
-);
-
-CREATE TABLE fotos ( 
-    id INT IDENTITY(1,1) PRIMARY KEY,  
-    nombre_foto VARCHAR(255), 
-    foto VARBINARY(MAX), 
-    observacion TEXT,  
-);
-
-
--- Insertar empleados de prueba
-INSERT INTO empleados (numero_empleado, nombre, cargo, celular, fiscalia_general, fiscalia_especializada_en, vicefiscalia_en, direccion_general, departamento_area) 
-VALUES
-('1001', 'Juan Pérez', 'Jefe de Seguridad', '555-1234', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Delitos Financieros', 'Vicefiscalía de Investigación Criminal', 'Dirección General de Seguridad', 'Departamento de Seguridad'),
-('1002', 'Ana González', 'Supervisor de Mantenimiento', '555-2345', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Derechos Humanos', 'Vicefiscalía de Prevención de Delitos', 'Dirección General de Logística', 'Departamento de Mantenimiento'),
-('1003', 'Carlos Martínez', 'Conductor', '555-3456', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Narcotráfico', 'Vicefiscalía en Investigación de Drogas', 'Dirección General de Transportes', 'Departamento de Transporte'),
-('1004', 'Laura Rodríguez', 'Mecánico', '555-4567', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Criminalística', 'Vicefiscalía en Investigación Técnica', 'Dirección General de Infraestructura', 'Departamento de Reparaciones'),
-('1005', 'Pedro López', 'Asistente Administrativo', '555-5678', 'Fiscalía General de la Nación', 'Fiscalía Especializada en Administración', 'Vicefiscalía en Finanzas', 'Dirección General de Administración', 'Departamento de Administración');
-
--- Insertar vehículos de prueba
-INSERT INTO vehiculos (numero_economico, placa, serie, color, clase_vehiculo, marca_vehiculo, submarca, modelo_vehiculo) VALUES
-(101, 'ABC-123', '1A2B3C4D5E6F7G8H9', 'Rojo', 'Sedán', 'Toyota', 'Corolla', 2020),
-(102, 'XYZ-456', '9H8G7F6E5D4C3B2A1', 'Azul', 'Camioneta Blindada', 'Honda', 'CR-V', 2019),
-(103, 'LMN-789', '0Z9Y8X7W6V5U4T3S2', 'Negro', 'Camioneta Blindada', 'Ford', 'F-150', 2021),
-(104, 'PQR-012', '3C4B5A6D7E8F9G1H2', 'Blanco', 'Pickup', 'Chevrolet', 'Silverado', 2022),
-(105, 'STU-345', '1H2G3F4E5D6C7B8A9', 'Gris', 'Sedán', 'Nissan', 'Altima', 2020);
 

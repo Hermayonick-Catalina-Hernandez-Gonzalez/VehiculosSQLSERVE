@@ -34,9 +34,8 @@
     <div class="right-section">
         <!-- Formulario-->
         <h1>Datos Vehiculares</h1>
-        <form id="formularioVehiculo" action="../../php/historial.php" method="POST">
+        <form id="formularioVehiculo">
             <div class="form-row">
-                <!-- Campos de formulario-->
                 <div class="form-group">
                     <label for="numero_economico">Número Económico:</label>
                     <input type="number" id="numero_economico" name="numero_economico" required onchange="buscarVehiculo()">
@@ -91,16 +90,15 @@
                     <label for="decomisado">Decomisado:</label>
                     <input type="radio" id="decomisado" name="tipo_condicion" value="decomisado">
                 </div>
-
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="km">Kilómetraje:</label>
+                    <label for="kilometraje">Kilómetraje:</label>
                     <input type="number" id="kilometraje" name="kilometraje">
                 </div>
             </div>
         </form>
-        <button  class="btn" type="submit" id="btnGuardar" >Siguiente</button>
+        <button class="btn" type="button" onclick="siguiente()">Siguiente</button>
     </div>
 
     <script src="../../JS/acciones.js"></script>

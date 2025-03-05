@@ -36,7 +36,7 @@
     <!-- Sección del formulario -->
     <div class="right-section">
         <h1>Resguardo Vehicular</h1>
-        <form id="formularioResguardante" action="../../php/historial.php" method="POST">
+        <form id="formularioResguardante"  action="../../php/guardar_resguardante.php" method="POST" >
             <div class="form-row">
                 <div class="form-group">
                     <label for="fecha">Fecha:</label>
@@ -44,118 +44,109 @@
                 </div>
                 <div class="form-group">
                     <label for="municipio">Municipio:</label>
-                    <input type="text" id="municipio" name="municipio">
+                    <input type="text" id="municipio" name="municipio" required>
                 </div>
                 <div class="form-group">
                     <label for="FGJRM">FGJRM:</label>
-                    <input type="text" id="FGJRM" name="FGJRM">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <!-- Resguardante -->
-                <div class="form-group">
-                    <label for="resguardante">Resguardante:</label>
-                    <input type="text" id="resguardante" name="resguardante"
-                        onblur="buscarEmpleados()">
-                </div>
-                <div class="form-group">
-                    <label for="cargo">Cargo:</label>
-                    <input type="text" id="cargo" name="cargo">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="licencia">Licencia:</label>
-                    <input type="text" id="licencia" name="licencia">
-                </div>
-                <div class="form-group">
-                    <label for="vigencia">Vigencia:</label>
-                    <input type="text" id="vigencia" name="vigencia">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="fiscalia_general">Fiscalía General:</label>
-                    <input type="text" id="fiscalia_general"
-                        name="fiscalia_general">
-                </div>
-                <div class="form-group">
-                    <label for="fiscalia_especializada_en">Fiscalía
-                        Especializada en:</label>
-                    <input type="text" id="fiscalia_especializada_en"
-                        name="fiscalia_especializada_en">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="vicefiscalia_en">Vicefiscalía en:</label>
-                    <input type="text" id="vicefiscalia_en"
-                        name="vicefiscalia_en">
-                </div>
-                <div class="form-group">
-                    <label for="direccion_general">Dirección
-                        General:</label>
-                    <input type="text" id="direccion_general"
-                        name="direccion_general">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label
-                        for="departamento_area">Departamento/Área:</label>
-                    <input type="text" id="departamento_area"
-                        name="departamento_area">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <!-- Resguardante Interno -->
-                <div class="form-group">
-                    <label for="resguardante_interno">Resguardante
-                        Interno:</label>
-                    <input type="text" id="resguardante_interno"
-                        name="resguardante_interno"
-                        onblur="buscarEmpleados()">
-                </div>
-                <div class="form-group">
-                    <label for="cargo_interno">Cargo:</label>
-                    <input type="text" id="cargo_interno"
-                        name="cargo_interno">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="licencia_interna">Licencia:</label>
-                    <input type="text" id="licencia_interna"
-                        name="licencia_interna">
-                </div>
-                <div class="form-group">
-                    <label for="vigencia_interna">Vigencia:</label>
-                    <input type="text" id="vigencia_interna"
-                        name="vigencia_interna">
+                    <input type="text" id="FGJRM" name="FGJRM" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="numero_empleado">Número de Empleado:</label>
-                    <input type="number" id="numero_empleado"
-                        name="numero_empleado">
+                    <input type="number" id="numero_empleado" name="numero_empleado" onblur="buscarEmpleado('numero_empleado')" required>
+                </div>
+
+                <!-- Resguardante -->
+                <div class="form-group">
+                    <label for="resguardante">Resguardante:</label>
+                    <input type="text" id="resguardante" name="resguardante" >
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cargo">Cargo:</label>
+                    <input type="text" id="cargo" name="cargo" required>
+                </div>
+                <div class="form-group">
+                    <label for="licencia">Licencia:</label>
+                    <input type="text" id="licencia" name="licencia" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="vigencia">Vigencia:</label>
+                    <input type="text" id="vigencia" name="vigencia" required>
+                </div>
+                <div class="form-group">
+                    <label for="fiscalia_general">Fiscalía General:</label>
+                    <input type="text" id="fiscalia_general" name="fiscalia_general" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fiscalia_especializada_en">Fiscalía Especializada en:</label>
+                    <input type="text" id="fiscalia_especializada_en" name="fiscalia_especializada_en" required>
+                </div>
+                <div class="form-group">
+                    <label for="vicefiscalia_en">Vicefiscalía en:</label>
+                    <input type="text" id="vicefiscalia_en" name="vicefiscalia_en" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="direccion_general">Dirección General:</label>
+                    <input type="text" id="direccion_general" name="direccion_general" required>
+                </div>
+                <div class="form-group">
+                    <label for="departamento_area">Departamento/Área:</label>
+                    <input type="text" id="departamento_area" name="departamento_area" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="numero_empleado_interno">Número de Empleado  Interno:</label>
+                    <input type="number" id="numero_empleado_interno" name="numero_empleado_interno"  onblur="buscarEmpleado('numero_empleado_interno')"  required>
+                </div>
+                <div class="form-group">
+                    <label for="resguardante_interno">Resguardante Interno:</label>
+                    <input type="text" id="resguardante_interno" name="resguardante_interno"  required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cargo_interno">Cargo:</label>
+                    <input type="text" id="cargo_interno" name="cargo_interno" required>
+                </div>
+                <div class="form-group">
+                    <label for="licencia_interna">Licencia:</label>
+                    <input type="text" id="licencia_interna" name="licencia_interna" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="vigencia_interna">Vigencia:</label>
+                    <input type="text" id="vigencia_interna" name="vigencia_interna" required>
                 </div>
                 <div class="form-group">
                     <label for="celular">Celular:</label>
-                    <input type="text" id="celular" name="celular">
+                    <input type="text" id="celular" name="celular" required>
                 </div>
             </div>
+
+
+            <button class="btn" type="button" onclick="guardarDatos()">Siguiente</button>
         </form>
-        <button class="btn" type="submit" id="btnGuardar" onclick="siguiente()">Siguiente</button>
     </div>
+
     <script src="../../JS/resguardante.js"></script>
     <script src="../../JS/municipios.js"></script>
 </body>
