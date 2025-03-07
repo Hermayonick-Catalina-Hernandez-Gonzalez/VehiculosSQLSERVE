@@ -12,7 +12,7 @@ if (!isset($_GET['numero_economico'])) {
 $numeroEconomico = $_GET['numero_economico'];
 
 try {
-    $sql = "EXEC dbo.CONSULTA_DATOS_VEHICULO_EMPLEADO @NUM_ECONOMICO = :num, @PLACA = '', @NUM_EMPLEADO = ''";
+    $sql = "EXEC dbo.CONSULTA_DATOS_VEHICULO_EMPLEADO @NUM_ECONOMICO = :num, @PLACA = '0', @NUM_EMPLEADO = '0'";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':num', $numeroEconomico);
     $stmt->execute();

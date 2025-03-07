@@ -14,6 +14,7 @@ function buscarVehiculo() {
     fetch(`http://localhost/xampp/VehiculosSQLSERVE/php/buscarVehiculo.php?numero_economico=${numeroEconomico}`)
         .then(response => response.text())
         .then(data => {
+            console.log(data)
             if (data.error) {
                 Swal.fire({
                     title: "Oops...",

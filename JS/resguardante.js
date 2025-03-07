@@ -65,7 +65,6 @@ function buscarEmpleado(tipo) {
     fetch(url)
         .then(response => response.text())
         .then(data => {
-            console.log("Respuesta del servidor:", data);
             const jsonResponse = data.substring(data.indexOf("{"));
             try {
                 const jsonData = JSON.parse(jsonResponse);

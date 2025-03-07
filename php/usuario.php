@@ -1,15 +1,15 @@
 <?php
-include '../php/conexion.php';  // Asegúrate de conectar a la BD correctamente
+include '../php/conexion.php';  
 
 // Datos del primer usuario (Verificador)
 $correo_verificador = "verificador@fgj.tam";
 $contraseña_verificador = "verificador";
-$rol_verificador = "verificador";  // Rol para el primer usuario
+$rol_verificador = "verificador";  
 
 // Datos del segundo usuario (Resguardante)
 $correo_resguardante = "resguardante@fgj.tam";
 $contraseña_resguardante = "resguardante";
-$rol_resguardante = "resguardante";  // Rol para el segundo usuario
+$rol_resguardante = "resguardante";  
 
 // Encriptar las contraseñas con BCRYPT
 $contraseña_encriptada_verificador = password_hash($contraseña_verificador, PASSWORD_BCRYPT);
