@@ -1,3 +1,6 @@
+<?php 
+ session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -52,7 +55,7 @@
             <iframe src="../../tablas/accesorios.html" width="100%" height="500px" title="Tabla Exterior"></iframe>
         </div>
 
-        <button class="btn" type="button" onclick="nextTab()">Siguiente</button>
+        <button class="btn" type="button" onclick="guardarVerificacion(); guardarObservaciones();">Siguiente</button>
     </div>
     <script src="../../JS/acciones.js"></script>
     <script src="../../JS/verificacion.js"></script>

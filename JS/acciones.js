@@ -93,23 +93,6 @@ function normalizarTexto(texto) {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-function mostrarSelectVehiculo() {
-    let tipoOcupacion = document.getElementById("tipo_ocupacion").value;
-    let selectOperativo = document.getElementById("select_operativo");
-    let selectAdministrativo = document.getElementById("select_administrativo");
-
-    // Oculta ambos select
-    selectOperativo.style.display = "none";
-    selectAdministrativo.style.display = "none";
-
-    // Muestra el select correspondiente
-    if (tipoOcupacion === "operativo") {
-        selectOperativo.style.display = "block";
-    } else if (tipoOcupacion === "administrativo") {
-        selectAdministrativo.style.display = "block";
-    }
-}
-
 function togglePassword() {
     const passwordField = document.getElementById('contra');
     const toggleIcon = document.getElementById('toggle-password');

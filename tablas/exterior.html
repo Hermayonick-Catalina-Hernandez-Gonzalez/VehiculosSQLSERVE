@@ -187,15 +187,13 @@
             <td><input type="radio" name="carroceria" value="regular"></td>
             <td><input type="radio" name="carroceria" value="mal"></td>
         </tr>
-        <tr>
-            <td colspan="4">
-                <label for="observaciones">Observaciones:</label>
-                <textarea id="observaciones" name="observaciones" rows="4"
-                    cols="50"></textarea>
-            </td>
-        </tr>
     </tbody>
 </table>
+<div>
+
+    <label for="observaciones">Observaciones:</label>
+    <textarea id="observaciones" name="observaciones" rows="4" cols="50"></textarea>
+</div>
 <script src="../JS/verificacion.js"></script>
 
 <script>
@@ -223,6 +221,18 @@
                 }
             }
         });
+        let observaciones = document.getElementById("observaciones");
+
+        // Recuperar datos almacenados
+        if (localStorage.getItem("observaciones")) {
+            observaciones.value = localStorage.getItem("observaciones");
+        }
+
+        // Guardar cambios cuando el usuario escriba
+        observaciones.addEventListener("input", function () {
+            localStorage.setItem("observaciones", observaciones.value);
+        });
     });
+
     </script>
     

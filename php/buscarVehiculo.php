@@ -1,31 +1,33 @@
 <?php
-include '../php/conexion.php'; 
+require '../php/conexion.php';
 
 header('Content-Type: application/json');
-header("Access-Control-Allow-Origin: *"); 
+header("Access-Control-Allow-Origin: *");
 
-// Obtener el número económico desde la URL
-if (isset($_GET["numero_economico"])) {
-    $numero_economico = $_GET["numero_economico"];
-
-    try {
-        // Consulta con prepared statement para evitar inyección SQL
-        $stmt = $conn->prepare("SELECT * FROM vehiculos WHERE numero_economico = ?");
-        $stmt->execute([$numero_economico]);
-
-        $vehiculo = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($vehiculo) {
-            echo json_encode($vehiculo); // Enviar datos en formato JSON
-        } else {
-            echo json_encode(["error" => "Vehículo no encontrado"]);
-        }
-    } catch (PDOException $e) {
-        echo json_encode(["error" => "Error en la consulta: " . $e->getMessage()]);
-    }
-} else {
-    echo json_encode(["error" => "Número económico no proporcionado"]);
+if (!isset($_GET['numero_economico'])) {
+    echo json_encode(["error" => "Falta el parámetro 'numero_economico'"]);
+    exit;
 }
 
-$conn = null; // Cerrar la conexión
+$numeroEconomico = $_GET['numero_economico'];
+
+try {
+    $sql = "EXEC dbo.CONSULTA_DATOS_VEHICULO_EMPLEADO @NUM_ECONOMICO = :num, @PLACA = '', @NUM_EMPLEADO = ''";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':num', $numeroEconomico);
+    $stmt->execute();
+
+    // Intentar obtener los resultados
+    $vehiculo = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($vehiculo) {
+        echo json_encode($vehiculo);
+    } else {
+        echo json_encode(["error" => "Vehículo no encontrado"]);
+    }
+} catch (Exception $e) {
+    echo json_encode(["error" => "Error en la consulta: " . $e->getMessage()]);
+}
+
+$conn = null;
 ?>

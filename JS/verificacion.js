@@ -87,3 +87,54 @@ function finalizarFormulario() {
     localStorage.clear();
 }
 
+function guardarVerificacion() {
+    let elementos = document.querySelectorAll('input[type="radio"]:checked');
+    let datos = [];
+
+    elementos.forEach((el) => {
+        datos.push({
+            categoria: "Exterior", // Asegúrate de cambiarlo si hay más categorías
+            elemento: el.name,
+            estado: el.value
+        });
+    });
+
+    fetch('../php/guardar_verificacion.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ verificaciones: datos }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Verificación guardada:', data);
+    })
+    .catch(error => console.error('Error al guardar la verificación:', error));
+}
+
+function guardarObservaciones() {
+    let observaciones = document.getElementById("observaciones").value;
+
+    if (!observaciones.trim()) {
+        console.log("No hay observaciones para guardar.");
+        return;
+    }
+
+    fetch('../php/guardar_verificacion.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            categoria: "Exterior", 
+            observaciones: observaciones,
+            verificacion_id: 1  // Aquí debes obtener el `verificacion_id` después de guardar
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Observaciones guardadas:', data);
+    })
+    .catch(error => console.error('Error al guardar observaciones:', error));
+}

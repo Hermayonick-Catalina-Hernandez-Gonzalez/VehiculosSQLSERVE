@@ -12,7 +12,7 @@ function buscarVehiculo() {
     }
 
     fetch(`http://localhost/xampp/VehiculosSQLSERVE/php/buscarVehiculo.php?numero_economico=${numeroEconomico}`)
-        .then(response => response.json())
+        .then(response => response.text())
         .then(data => {
             if (data.error) {
                 Swal.fire({
@@ -108,6 +108,44 @@ function cargarDatosFormulario() {
     });
 }
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    recuperarSeleccion();
+});
+
+function guardarSeleccion() {
+    let tipoOcupacion = document.getElementById("tipo_ocupacion").value;
+    let tipoVehiculoOperativo = document.getElementById("tipo_vehiculo_operativo")?.value;
+    let tipoVehiculoAdministrativo = document.getElementById("tipo_vehiculo_administrativo")?.value;
+
+    localStorage.setItem("tipo_ocupacion", tipoOcupacion);
+    
+    if (tipoOcupacion === "operativo") {
+        localStorage.setItem("tipo_vehiculo", tipoVehiculoOperativo);
+    } else if (tipoOcupacion === "administrativo") {
+        localStorage.setItem("tipo_vehiculo", tipoVehiculoAdministrativo);
+    }
+}
+
+
+function recuperarSeleccion() {
+    let tipoOcupacion = localStorage.getItem("tipo_ocupacion");
+    let tipoVehiculo = localStorage.getItem("tipo_vehiculo");
+
+    if (tipoOcupacion) {
+        document.getElementById("tipo_ocupacion").value = tipoOcupacion;
+
+        setTimeout(() => {
+            if (tipoOcupacion === "operativo" && tipoVehiculo) {
+                document.getElementById("tipo_vehiculo_operativo").value = tipoVehiculo;
+                document.getElementById("select_operativo").style.display = "block"; // Asegura que se muestre
+            } else if (tipoOcupacion === "administrativo" && tipoVehiculo) {
+                document.getElementById("tipo_vehiculo_administrativo").value = tipoVehiculo;
+                document.getElementById("select_administrativo").style.display = "block"; // Asegura que se muestre
+            }
+        }, 100); 
+    }
+}
 
 // Limpiar localStorage solo cuando el usuario presiona "Aceptar"
 function finalizarFormulario() {

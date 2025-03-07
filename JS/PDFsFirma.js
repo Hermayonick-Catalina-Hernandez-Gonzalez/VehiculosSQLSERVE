@@ -23,7 +23,7 @@ function descargarPDFConFirma(imagenFirma) {
         startY: 80,
         head: [["MARCA", "SUBMARCA", "SERIE", "MODELO", "PLACA", "N° ECO"]],
         body: [
-            ["Toyota", "Corolla", "3XXAAB", "2022", "ABC-123", "0218"],
+            [" ", " ", " ", " ", " ", " "],
             [{ content: "AREA", styles: { textColor: [255, 255, 255], fontStyle: "bold" } },
             { content: " ", colSpan: 5, styles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], halign: "center" } }]
         ],

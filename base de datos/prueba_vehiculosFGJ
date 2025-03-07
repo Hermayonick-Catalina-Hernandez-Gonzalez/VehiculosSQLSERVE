@@ -38,3 +38,24 @@ CREATE TABLE resguardante (
     celular VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE verificacion(
+    id INT IDENTITY(1,1) PRIMARY KEY, 
+    categoria VARCHAR(255) NOT NULL,
+    elemento VARCHAR(255) NOT NULL,
+    estado VARCHAR(20) CHECK (estado IN ('bien', 'mal', 'regular', 'si', 'no'))
+);
+
+CREATE TABLE Observacionesverificacion(
+    id INT IDENTITY(1,1) PRIMARY KEY, 
+    categoria VARCHAR(255) NOT NULL,
+    observaciones TEXT NOT NULL,
+    verificacion_id INT,  
+    FOREIGN KEY (verificacion_id) REFERENCES verificacion(id)
+);
+
+CREATE TABLE fotos (
+    id INT IDENTITY(1,1) PRIMARY KEY, 
+    nombre VARCHAR(255) NOT NULL,
+    foto VARBINARY(MAX), 
+    observaciones TEXT NOT NULL
+);

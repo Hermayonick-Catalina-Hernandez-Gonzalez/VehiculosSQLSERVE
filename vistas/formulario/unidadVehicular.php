@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -38,7 +41,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="numero_economico">Número Económico:</label>
-                    <input type="number" id="numero_economico" name="numero_economico" required onchange="buscarVehiculo()">
+                    <input type="text" id="numero_economico" name="numero_economico" required onchange="buscarVehiculo()">
                 </div>
 
                 <div class="form-group">
@@ -97,6 +100,13 @@
                     <input type="number" id="kilometraje" name="kilometraje">
                 </div>
             </div>
+            <label for="tipo_ocupacion">Tipo de Ocupación:</label>
+            <select id="tipo_ocupacion" name="tipo_ocupacion" onchange="mostrarSelectVehiculo(); guardarSeleccion();">
+                <option value>Seleccione una opción</option>
+                <option value="operativo">Operativo</option>
+                <option value="administrativo">Administrativo</option>
+            </select>
+
         </form>
         <button class="btn" type="button" onclick="siguiente()">Siguiente</button>
     </div>

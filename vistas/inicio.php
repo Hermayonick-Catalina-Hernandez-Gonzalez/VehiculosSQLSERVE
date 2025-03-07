@@ -4,21 +4,43 @@ if ($_SESSION['rol'] != 'resguardante') {
     header("Location: ../index.php");
     exit();  
 }
+
 include "../php/conexion.php"; 
 
 $vehiculos = [];
 if ($conn) {
     try {
-        $query = "SELECT * FROM vehiculos";
-        $stmt = $conn->query($query);
+        // Valores predeterminados para los parámetros
+        $valor_generico = ''; // Usamos cadenas vacías en lugar de 0
+        
+        // Preparamos la llamada al procedimiento con los parámetros
+        $stmt = $conn->prepare("EXEC CONSULTA_DATOS_VEHICULO_EMPLEADO :NUM_ECONOMICO, :PLACA, :NUM_EMPLEADO");
+        
+        // Asignamos los valores a los parámetros
+        $stmt->bindParam(':NUM_ECONOMICO', $valor_generico, PDO::PARAM_STR);
+        $stmt->bindParam(':PLACA', $valor_generico, PDO::PARAM_STR);
+        $stmt->bindParam(':NUM_EMPLEADO', $valor_generico, PDO::PARAM_STR);
+        
+        // Ejecutamos la consulta
+        $stmt->execute();
+        
+        // Verificar si la consulta devuelve algún resultado
         $vehiculos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Si no hay resultados, muestra un mensaje
+        if (empty($vehiculos)) {
+            echo "<p>No se encontraron vehículos.</p>";
+        }
+        
     } catch (PDOException $e) {
+        // Si ocurre un error, lo mostramos
         echo "<p>Error al obtener los datos: " . $e->getMessage() . "</p>";
     }
 } else {
     echo "<p>No se pudo conectar a la base de datos.</p>";
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

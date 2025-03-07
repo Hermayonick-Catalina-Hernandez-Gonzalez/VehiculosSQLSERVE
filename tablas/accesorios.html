@@ -73,37 +73,6 @@
     </tbody>
 </table>
 
-<label for="tipo_ocupacion">Tipo de Ocupación:</label>
-<select id="tipo_ocupacion" name="tipo_ocupacion"
-    onchange="mostrarSelectVehiculo()">
-    <option value>Seleccione una opción</option>
-    <option value="operativo">Operativo</option>
-    <option value="administrativo">Administrativo</option>
-</select>
-
-<div id="select_operativo" style="display: none;">
-    <label for="tipo_vehiculo_operativo">Tipo de Vehículo (Operativo):</label>
-    <select id="tipo_vehiculo_operativo" name="tipo_vehiculo_operativo">
-        <option value="patrulla">Patrulla</option>
-        <option value="tactico">Táctico</option>
-        <option value="camionetaB">Camioneta Blindada</option>
-        <option value="pickup">Pick UP</option>
-        <option value="sedan">Sedan</option>
-        <option value="rotulado">Rotulado</option>
-        <option value="motocicleta">Motocicleta</option>
-    </select>
-</div>
-
-<div id="select_administrativo" style="display: none;">
-    <label for="tipo_vehiculo_administrativo">Tipo de Vehículo    (Administrativo):</label>
-    <select id="tipo_vehiculo_administrativo"
-        name="tipo_vehiculo_administrativo">
-        <option value="camionetaB">Camioneta Blindada</option>
-        <option value="pickup">Pick UP</option>
-        <option value="sedan">Sedan</option>
-        <option value="rotulado">Rotulado</option>
-    </select>
-</div>
 
 <div>
 
@@ -136,6 +105,17 @@
                     }
                 }
             }
+        });
+        let observaciones = document.getElementById("observaciones");
+
+        // Recuperar datos almacenados
+        if (localStorage.getItem("observaciones")) {
+            observaciones.value = localStorage.getItem("observaciones");
+        }
+
+        // Guardar cambios cuando el usuario escriba
+        observaciones.addEventListener("input", function () {
+            localStorage.setItem("observaciones", observaciones.value);
         });
     });
     </script>

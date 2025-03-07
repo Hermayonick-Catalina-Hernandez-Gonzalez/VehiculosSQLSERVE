@@ -176,6 +176,32 @@ function finalizarFormulario() {
 }
 
 function guardarDatos() {
+    // Obtenemos todos los campos de entrada dentro del formulario
+    var formElements = document.getElementById('formularioResguardante').elements;
+    var allFieldsFilled = true;
+
+    // Recorremos todos los elementos del formulario
+    for (var i = 0; i < formElements.length; i++) {
+        var element = formElements[i];
+        
+        // Comprobamos si el campo es obligatorio y está vacío
+        if (element.required && element.value.trim() === "") {
+            allFieldsFilled = false;
+            break;  // Si encontramos un campo vacío, dejamos de comprobar el resto
+        }
+    }
+
+    // Si algún campo obligatorio está vacío, mostramos una alerta y no enviamos el formulario
+    if (!allFieldsFilled) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor, completa todos los campos obligatorios.',
+        });
+        return; // Detenemos el envío del formulario
+    }
+
+    // Si todos los campos están llenos, enviamos los datos
     var formData = new FormData(document.getElementById('formularioResguardante'));
 
     fetch('http://localhost/xampp/VehiculosSQLSERVE/php/guardar_resguardante.php', {
@@ -194,6 +220,4 @@ function guardarDatos() {
             console.error("Error al parsear JSON:", error);
         }
     })
-    
-
 }
