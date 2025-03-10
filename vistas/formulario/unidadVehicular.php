@@ -83,11 +83,11 @@ session_start();
             <div class="form-row">
                 <div class="form-group">
                     <label for="propio">Propio:</label>
-                    <input type="radio" id="propio" name="tipo_condicion" value="propio" >
+                    <input type="radio" id="propio" name="tipo_condicion" value="propio">
                 </div>
                 <div class="form-group">
                     <label for="aprendado">Arrendado:</label>
-                    <input type="radio" id="aprendado" name="tipo_condicion" value="aprendado" >
+                    <input type="radio" id="aprendado" name="tipo_condicion" value="aprendado">
                 </div>
                 <div class="form-group">
                     <label for="decomisado">Decomisado:</label>
@@ -101,8 +101,8 @@ session_start();
                 </div>
             </div>
             <label for="tipo_ocupacion">Tipo de Ocupación:</label>
-            <select id="tipo_ocupacion" name="tipo_ocupacion" onchange="guardarSeleccion();">
-                <option value>Seleccione una opción</option>
+            <select id="tipo_ocupacion" name="tipo_ocupacion" onchange="guardarSeleccion();" required>
+                <option value="" disabled selected>Seleccione una opción</option>
                 <option value="operativo">Operativo</option>
                 <option value="administrativo">Administrativo</option>
             </select>
