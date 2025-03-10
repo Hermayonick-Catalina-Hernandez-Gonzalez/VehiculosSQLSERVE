@@ -64,7 +64,7 @@
                 <!-- Resguardante -->
                 <div class="form-group">
                     <label for="resguardante">Resguardante:</label>
-                    <input type="text" id="resguardante" name="resguardante" >
+                    <input type="text" id="resguardante" name="resguardante" required>
                 </div>
             </div>
 

@@ -39,43 +39,43 @@
         <h1>Fotografías Vehicular</h1>
         <div class="foto-apartado-container">
             <div class="foto-apartado">
-                <p>Delantero:</p>
+                <p>Lado Frontal:</p>
                 <img src="../../img/agregar.png" alt="Foto Frontal" class="foto-preview" id="foto-frontal" onclick="abrirCamara('foto-frontal')">
-                <textarea id="observaciones" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
+                <textarea id="observaciones-foto-frontal" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
             </div>
             <div class="foto-apartado">
                 <p>Lado Posterior:</p>
                 <img src="../../img/agregar.png" alt="Foto Posterior" class="foto-preview" id="foto-posterior" onclick="abrirCamara('foto-posterior')">
-                <textarea id="observaciones" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
+                <textarea id="observaciones-foto-posterior" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
             </div>
         </div>
         <div class="foto-apartado-container">
             <div class="foto-apartado">
                 <p>Lado Derecho:</p>
                 <img src="../../img/agregar.png" alt="Foto Lado Derecho" class="foto-preview" id="foto-derecho" onclick="abrirCamara('foto-derecho')">
-                <textarea id="observaciones" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
+                <textarea id="observaciones-foto-derecho" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
             </div>
             <div class="foto-apartado">
                 <p>Lado Izquierdo:</p>
                 <img src="../../img/agregar.png" alt="Foto Lado Izquierdo" class="foto-preview" id="foto-izquierdo" onclick="abrirCamara('foto-izquierdo')">
-                <textarea id="observaciones" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
+                <textarea id="observaciones-foto-izquierdo" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
             </div>
         </div>
         <div class="foto-apartado-container">
             <div class="foto-apartado">
                 <p>Kilometraje:</p>
                 <img src="../../img/agregar.png" alt="Kilometraje" class="foto-preview" id="kilometraje" onclick="abrirCamara('kilometraje')">
-                <textarea id="observaciones" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
+                <textarea id="observaciones-foto-kilometraje" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
             </div>
             <div class="foto-apartado">
                 <p>Numero de Serie:</p>
                 <img src="../../img/agregar.png" alt="Numero de serie" class="foto-preview" id="numero-serie" onclick="abrirCamara('numero-serie')">
-                <textarea id="observaciones" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
+                <textarea id="observaciones-foto-numero-serie" name="observaciones" rows="2" cols="5" placeholder="Observaciones"></textarea>
             </div>
         </div>
         <button onclick="agregarFotoExtra()" class="btn">Agregar Fotografía Extra</button>
         <div id="extra-fotos-container"></div>
-        <button type="button" onclick="final()" class="btn">Guardar</button>
+        <button type="button" onclick="guardar()" class="btn">Guardar</button>
 
     </div>
 

@@ -15,7 +15,7 @@ function formatearFecha(fechaHora) {
     var año = fecha.getFullYear();
     var mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
     var dia = ('0' + fecha.getDate()).slice(-2);
-    return año + '-' + mes + '-' + dia;  // Formato: YYYY-MM-DD
+    return año + '-' + mes + '-' + dia;  
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -149,7 +149,6 @@ function buscarEmpleado(tipo) {
 
 document.addEventListener("DOMContentLoaded", function () {
     cargarDatosFormulario(); // Carga los datos almacenados en localStorage
-
     // Guardar cambios a medida que el usuario escribe
     document.querySelectorAll("#formularioResguardante input").forEach(input => {
         input.addEventListener("input", function () {
@@ -168,12 +167,6 @@ function cargarDatosFormulario() {
     });
 }
 
-
-// Limpiar localStorage solo cuando el usuario presiona "Aceptar"
-function finalizarFormulario() {
-    localStorage.clear();
-}
-
 function guardarDatos() {
     // Obtenemos todos los campos de entrada dentro del formulario
     var formElements = document.getElementById('formularioResguardante').elements;
@@ -186,18 +179,22 @@ function guardarDatos() {
         // Comprobamos si el campo es obligatorio y está vacío
         if (element.required && element.value.trim() === "") {
             allFieldsFilled = false;
-            break;  // Si encontramos un campo vacío, dejamos de comprobar el resto
+            // Marcar el campo vacío con un borde rojo
+            element.style.border = "1px solid red";
+        } else {
+            // Eliminar el borde rojo si el campo tiene valor
+            element.style.border = "";
         }
     }
 
     // Si algún campo obligatorio está vacío, mostramos una alerta y no enviamos el formulario
     if (!allFieldsFilled) {
         Swal.fire({
-            icon: 'error',
-            title: 'Error',
+            icon: 'warning',
+            title: 'Faltan campos por llenar',
             text: 'Por favor, completa todos los campos obligatorios.',
         });
-        return; // Detenemos el envío del formulario
+        return;  // Detenemos la ejecución del resto del código
     }
 
     // Si todos los campos están llenos, enviamos los datos
@@ -219,4 +216,10 @@ function guardarDatos() {
             console.error("Error al parsear JSON:", error);
         }
     })
+}
+
+
+// Limpiar localStorage solo cuando el usuario presiona "Aceptar"
+function finalizarFormulario() {
+    localStorage.clear();
 }

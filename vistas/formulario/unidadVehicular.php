@@ -41,7 +41,7 @@ session_start();
             <div class="form-row">
                 <div class="form-group">
                     <label for="numero_economico">Número Económico:</label>
-                    <input type="text" id="numero_economico" name="numero_economico" required onchange="buscarVehiculo()">
+                    <input type="text" id="numero_economico" name="numero_economico" required onchange="buscarVehiculo()" required>
                 </div>
 
                 <div class="form-group">
@@ -52,42 +52,42 @@ session_start();
             <div class="form-row">
                 <div class="form-group">
                     <label for="serie">Serie:</label>
-                    <input type="text" id="serie" name="serie">
+                    <input type="text" id="serie" name="serie" required>
                 </div>
                 <div class="form-group">
                     <label for="color">Color:</label>
-                    <input type="text" id="color" name="color">
+                    <input type="text" id="color" name="color" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="clase_vehiculo">Clase:</label>
-                    <input type="text" id="clase_vehiculo" name="clase_vehiculo">
+                    <input type="text" id="clase_vehiculo" name="clase_vehiculo" required>
                 </div>
                 <div class="form-group">
                     <label for="marca_vehiculo">Marca:</label>
-                    <input type="text" id="marca_vehiculo" name="marca_vehiculo">
+                    <input type="text" id="marca_vehiculo" name="marca_vehiculo" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="submarca">Submarca:</label>
-                    <input type="text" id="submarca" name="submarca">
+                    <input type="text" id="submarca" name="submarca" required>
                 </div>
                 <div class="form-group">
                     <label for="modelo_vehiculo">Modelo:</label>
-                    <input type="text" id="modelo_vehiculo" name="modelo_vehiculo">
+                    <input type="text" id="modelo_vehiculo" name="modelo_vehiculo" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="propio">Propio:</label>
-                    <input type="radio" id="propio" name="tipo_condicion" value="propio" required>
+                    <input type="radio" id="propio" name="tipo_condicion" value="propio" >
                 </div>
                 <div class="form-group">
                     <label for="aprendado">Arrendado:</label>
-                    <input type="radio" id="aprendado" name="tipo_condicion" value="aprendado">
+                    <input type="radio" id="aprendado" name="tipo_condicion" value="aprendado" >
                 </div>
                 <div class="form-group">
                     <label for="decomisado">Decomisado:</label>
@@ -97,11 +97,11 @@ session_start();
             <div class="form-row">
                 <div class="form-group">
                     <label for="kilometraje">Kilómetraje:</label>
-                    <input type="number" id="kilometraje" name="kilometraje">
+                    <input type="number" id="kilometraje" name="kilometraje" required>
                 </div>
             </div>
             <label for="tipo_ocupacion">Tipo de Ocupación:</label>
-            <select id="tipo_ocupacion" name="tipo_ocupacion" onchange="mostrarSelectVehiculo(); guardarSeleccion();">
+            <select id="tipo_ocupacion" name="tipo_ocupacion" onchange="guardarSeleccion();">
                 <option value>Seleccione una opción</option>
                 <option value="operativo">Operativo</option>
                 <option value="administrativo">Administrativo</option>
