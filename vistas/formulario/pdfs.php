@@ -44,7 +44,7 @@ if (!isset($_SESSION['usuario_id'])) {
     <!-- Sección principal -->
     <div class="right-section">
         <h1>Verificacion de Datos</h1>
-        <button onclick="generarPDF()" class="btn">Ver PDF</button>
+        <button onclick="verPDF()" class="btn">Ver PDF</button>
         <form id="Pdf">
             <div class="tabs">
                 <button class="tablink" id="reglas"
@@ -63,8 +63,7 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
 
         </form>
-        <button onclick="abrirFirma(); finalizarFormulario();"
-            class="btn">Aceptar</button>
+        <button onclick="abrirFirma(); finalizarFormulario();" class="btn">Aceptar</button>
     </div>
 
     <!-- Modal de Firma Digital -->

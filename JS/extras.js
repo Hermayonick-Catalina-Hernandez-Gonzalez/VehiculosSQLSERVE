@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("No se encontró la pestaña 'Reglas' o su botón.");
     }
 
-    
     const iframe1 = document.getElementById("preview1");
     if (iframe1) {
         iframe1.style.display = "block"; 
@@ -42,7 +41,6 @@ function openTab(evt, tabName) {
         evt.currentTarget.classList.add("active");
     }
 }
-
 
 // Funciones para la firma
 function abrirFirma() {
@@ -128,3 +126,18 @@ function guardarFirma() {
     cerrarFirma();
     descargarPDFConFirma(imagenFirma);
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    let vehiculoId = localStorage.getItem("vehiculo_id");
+
+    if (vehiculoId) {
+        // Agregar el ID a la URL si no está presente
+        let url = new URL(window.location.href);
+        if (!url.searchParams.has("vehiculo_id")) {
+            url.searchParams.set("vehiculo_id", vehiculoId);
+            window.location.href = url.toString();
+        }
+    } else {
+        alert("No se encontró el ID del vehículo en localStorage.");
+    }
+});

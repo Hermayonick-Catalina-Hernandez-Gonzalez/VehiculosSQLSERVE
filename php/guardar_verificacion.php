@@ -29,7 +29,7 @@ try {
     $conn->commit();
     echo json_encode([
         "mensaje" => "Datos guardados con éxito",
-        "vehiculo_id" => $vehiculo_id  // ✅ Incluye vehiculo_id en la respuesta
+        "vehiculo_id" => $vehiculo_id 
     ]);
 } catch (Exception $e) {
     $conn->rollBack();

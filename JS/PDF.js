@@ -1,10 +1,47 @@
-function generarPDF() {
+function verPDF() {
+    const vehiculoId = localStorage.getItem("vehiculo_id");
+    if (vehiculoId) {
+        obtenerDatosVehiculo(vehiculoId);
+    } else {
+        alert("No se encontró el ID del vehículo.");
+    }
+}
+
+function obtenerDatosVehiculo(vehiculoId) {
+    fetch('http://localhost/xampp/VehiculosSQLSERVE/php/obtenerHistorial.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `vehiculo_id=${vehiculoId}`
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Para verificar la respuesta
+            if (data.error || !data.marca || !data.modelo || !data.placa) {
+                alert("Datos del vehículo no disponibles.");
+            } else {
+                generarPDF(data); // Llamamos a generarPDF pasándole los datos
+            }
+        })
+        .catch(error => {
+            console.error('Error al obtener datos:', error);
+            alert("Error al obtener los datos del vehículo.");
+        });
+}
+
+
+function generarPDF(vehiculo) {
+    console.log(vehiculo);
+    if (!vehiculo || !vehiculo.marca || !vehiculo.submarca || !vehiculo.serie) {
+        console.log("Datos faltantes en el vehículo: ", vehiculo);
+        alert("Datos del vehículo no disponibles.");
+        return;
+    }
+
     const { jsPDF } = window.jspdf;
-
     const img = new Image();
-    img.src = '../img/Logo.png';
     img.src = '../../img/Logo.png';
-
     img.onload = function () {
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
@@ -13,17 +50,16 @@ function generarPDF() {
         ctx.drawImage(img, 0, 0);
         const imgData = canvas.toDataURL('image/png'); // Convertir la imagen a base64
 
-        // Generar URLs de los PDFs
-        const pdf1 = generarPDF1(imgData);
-        const pdf2 = generarPDF2(imgData);
+        // Llamamos a generar el PDF con la información del vehículo
+        const pdf1 = generarPDF1(imgData, vehiculo);
+        const pdf2 = generarPDF2(imgData, vehiculo);
 
-        // Mostrar en iframes dentro de la página
         document.getElementById("preview1").src = pdf1;
         document.getElementById("preview2").src = pdf2;
-
     };
 }
-function generarPDF1(imgData) {
+
+function generarPDF1(imgData, vehiculo) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({
         orientation: 'portrait',
@@ -46,9 +82,9 @@ function generarPDF1(imgData) {
         startY: 80,
         head: [["MARCA", "SUBMARCA", "SERIE", "MODELO", "PLACA", "N° ECO"]],
         body: [
-            ["", "", "", "", "", ""],
+            [vehiculo.marca, vehiculo.submarca, vehiculo.serie, vehiculo.modelo, vehiculo.placa, vehiculo.numero_economico],
             [{ content: "AREA", styles: { textColor: [255, 255, 255], fontStyle: "bold" } },
-            { content: " ", colSpan: 5, styles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], halign: "center" } }]
+            { content: vehiculo.departamento_area, colSpan: 5, styles: { fillColor: [240, 240, 240], textColor: [0, 0, 0], halign: "center" } }]
         ],
         theme: "grid",
         styles: {
@@ -114,10 +150,10 @@ function generarPDF1(imgData) {
     y += 10;
     doc.text("Nombre y Firma", doc.internal.pageSize.getWidth() / 2, y + 12, { align: 'center' });
 
-    return doc.output("bloburl"); // Devuelve la URL para previsualización
+    return doc.output("bloburl");
 }
 
-function generarPDF2(imgData) {
+function generarPDF2(imgData, vehiculo) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({
         orientation: 'portrait',
@@ -152,18 +188,27 @@ function generarPDF2(imgData) {
 
     // Datos generales 
     drawCell(40, y, 80, 20, "FECHA:", [220, 220, 220]);
-    drawCell(120, y, 100, 20, "");
+    drawCell(110, y, 120, 20, vehiculo.fecha_resguardo);
     drawCell(220, y, 90, 20, "MUNICIPIO:", [220, 220, 220]);
-    drawCell(300, y, 120, 20, "");
+    drawCell(300, y, 120, 20, vehiculo.municipio);
     drawCell(400, y, 80, 20, "FGJRM:", [220, 220, 220]);
-    drawCell(480, y, 90, 20, "");
+    drawCell(480, y, 90, 20, vehiculo.FGJRM);
     y += 30;
 
 
+    // Datos adicionales (resguardante, cargo, etc.)
     let fields = [
-        "RESGUARDANTE:", "CARGO:", "LICENCIA:", "VIGENCIA:", "FISCALÍA GENERAL:",
-        "FISCALÍA ESPECIALIZADA EN:", "VICEFISCALÍA EN:", "DIRECCIÓN GENERAL:", "DEPARTAMENTO/ÁREA:"
+        { label: "RESGUARDANTE:", value: vehiculo.resguardante },
+        { label: "CARGO:", value: vehiculo.cargo },
+        { label: "LICENCIA:", value: vehiculo.licencia },
+        { label: "VIGENCIA:", value: vehiculo.vigencia },
+        { label: "FISCALÍA GENERAL:", value: vehiculo.fiscalia_general },
+        { label: "FISCALÍA ESPECIALIZADA EN:", value: vehiculo.fiscalia_especializada_en },
+        { label: "VICEFISCALÍA EN:", value: vehiculo.vicefiscalia_en },
+        { label: "DIRECCIÓN GENERAL:", value: vehiculo.direccion_general },
+        { label: "DEPARTAMENTO/ÁREA:", value: vehiculo.departamento_area }
     ];
+
     fields.forEach(label => {
         drawCell(40, y, 160, 20, "");
         drawCell(200, y, 370, 20, "");
@@ -174,7 +219,16 @@ function generarPDF2(imgData) {
     });
     y += 10;
 
-    let internalFields = ["RESGUARDANTE INTERNO:", "CARGO:", "LICENCIA:", "VIGENCIA:", "NÚMERO EMPLEADO:", "CELULAR:"];
+    // Datos internos (resguardante interno, cargo, etc.)
+    let internalFields = [
+        { label: "RESGUARDANTE INTERNO:", value: vehiculo.resguardante_interno },
+        { label: "CARGO:", value: vehiculo.cargo_interno },
+        { label: "LICENCIA:", value: vehiculo.licencia_interna },
+        { label: "VIGENCIA:", value: vehiculo.vigencia_interna },
+        { label: "NÚMERO EMPLEADO:", value: vehiculo.numero_empleado_interna },
+        { label: "CELULAR:", value: vehiculo.celular }
+    ];
+
     internalFields.forEach(label => {
         drawCell(40, y, 160, 20, "");
         drawCell(200, y, 370, 20, "");
@@ -184,6 +238,7 @@ function generarPDF2(imgData) {
         y += 20;
     });
     y += 10;
+
 
     // Datos de la unidad
     doc.setFont('helvetica', 'bold');
@@ -416,4 +471,3 @@ function generarPDF2(imgData) {
     return doc.output('bloburl');
 
 }
-
